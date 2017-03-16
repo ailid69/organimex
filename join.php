@@ -209,14 +209,40 @@
 				</h1>	
 			</div>
 		</div>				
-		<div class="row ">
-			<div class="col-sm-4" hidden id="fbPhoto"></div>	
-			<div class="col-sm-4" hidden id="fbWelcome"></div>
-			<div class="col-sm-4">
-				<div class="fb-login-button " onlogin="refreshFB()" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+			<div class="panel panel-primary">
+				 <div class="panel-heading">Conecarse co Facebook (o no)</div>
+				 <div class="panel-body">
+					<div class="row ">
+						<div class="col-sm-4" hidden id="fbPhoto"></div>	
+						<div class="col-sm-4" hidden id="fbWelcome"></div>
+						<div class="col-sm-4">
+							<div class="fb-login-button " onlogin="refreshFB()" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true"></div>
+						</div>	
+					</div>
+					<div class="panel-group" id="accordion">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse1">
+							Que hacemos con Facebook?
+						</a>
+					</h4>
+				</div>
+				<div id="collapse1" class="panel-collapse collapse">
+					<div class="panel-body">
+						<p class="text-muted"  style=" font-size: 14px; line-height: 1;">
+							Solo utilisamos Facebook para facilitarte la vida, nunca para utilisar tus datos personales.<br>
+							Te permite crear tu cuenta mas rapido porque recuperamos (SOLO) tu nombre, apellido, email y foto de perfil<br>
+							Si tu cuenta org@migos esta liada con tu cuenta Facebook, solo necesitas estar conectado al Face para entrar a nuestra plataforma.<br>
+							Necesitas ingresar tambien una contraseña para tu cuenta org@migos para que puedas tambien entrar a la plataforma sin tu cuenta Facebook.
+						</p>
+					</div>
+				</div>
 			</div>
-		</div>
-		
+		</div>	
+				</div>
+			</div>
+	
 		<div class="space-15"></div>
 		<div class="alert alert-info" hidden id="with_FB_link">
 				<div class = "row">
@@ -250,27 +276,7 @@
 				</div>
 		</div>
 		
-		<div class="panel-group" id="accordion">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h4 class="panel-title">
-						<a data-toggle="collapse" href="#collapse1">
-							Que hacemos con Facebook?
-						</a>
-					</h4>
-				</div>
-				<div id="collapse1" class="panel-collapse collapse">
-					<div class="panel-body">
-						<p class="text-muted"  style=" font-size: 14px; line-height: 1;">
-							Solo utilisamos Facebook para facilitarte la vida, nunca para utilisar tus datos personales.<br>
-							Te permite crear tu cuenta mas rapido porque recuperamos (SOLO) tu nombre, apellido, email y foto de perfil<br>
-							Si tu cuenta org@migos esta liada con tu cuenta Facebook, solo necesitas estar conectado al Face para entrar a nuestra plataforma.<br>
-							Necesitas ingresar tambien una contraseña para tu cuenta org@migos para que puedas tambien entrar a la plataforma sin tu cuenta Facebook.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>	
+		
 		
 		<div class="space-15"></div>
 		<form role="form" id="registerForm"> 

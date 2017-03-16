@@ -14,9 +14,11 @@
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
     <link href="bootstrap3/css/font-awesome.css" rel="stylesheet" />
     
+	<!--link href="jasny-bootstrap/css/jasny-bootstrap.css" rel="stylesheet" /!--> 
+	
 	<link href="assets/css/gsdk.css" rel="stylesheet" />   
-    <link href="assets/css/demo.css" rel="stylesheet" /> 
-
+    <link href="assets/css/demo.css" rel="stylesheet" > 
+	<link href="css/orgamigos.css" rel="stylesheet" />   
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
@@ -26,17 +28,95 @@
 <body>
  <?php include 'header.php'; ?>
 
-<div class="main">
-    <div class="container tim-container" style="max-width:800px; padding-top:100px">
-       <h1 class="text-center">Awesome looking header <br> just for my friends<small class="subtitle">This is like a small motto before the story.</small></h1>
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>      
-           <!--     end extras -->        
-    </div>
-    <div class="space"></div>
-<!-- end container -->
-</div>
-<!-- end main -->
+<div id="4href1"></div>
+<div class="eco-main" style="eco-color" >
+
+    <div class="container eco-container" id="section1">
+	   <h1 class="text-center">¿ Comó fonctiona ?<small class="subtitle">Es súper simple !</small></h1>
+       
+	   <img src="/img/circle1.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
+
+	   <h2 class="text-center">Elige un ecolugar cerca de tu zona, selectiona tus productos en linea, recoge tus compras el día mentionado</h2>
+        <div class="row" style="height:50%;">
+			<div class="col-md-4">
+				<div class="thumbnail">
+					<img src="/img/como1.png" alt="como1" class="eco-sm-img">
+					<div class="caption">
+						<h3 class="text-center">Elige un ecolugar cerca de tu zona</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="thumbnail">
+					<img src="/img/como2.png" alt="como2" class="eco-sm-img">
+					<div class="caption">
+						<h3 class="text-center">Selectiona tus productos en linea</h3>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="thumbnail">
+					<img src="/img/como3.png" alt="como3" class="eco-sm-img" >
+					<div class="caption">
+						<h3 class="text-center">Recoge tus compras el día mentionado</h3>
+					</div>
+				</div>
+			</div>
+		</div>       
+   	<img src="/img/blur1.jpg" alt="rounded Image" class="img-rounded center-block eco-img">  
+
+	</div>
+
+</div><!-- end main -->
+
+
+
+<div id="4href2"></div>
+<div class="eco-main">
+    <div class="container eco-container" id="section2" >
+		<h1 class="text-center">Lo que cuenta para nosotros<small class="subtitle">Favorecer circuitos cortos</small></h1>   
+		<img src="/img/circle2.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
+		<h2 class="text-center">Nuestros objetivos</h2>
+		<ul class="list-group">
+			<li class="list-group-item">
+				 <h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Local</h4>
+				<p>Promover y apoyar la produccíon local</p>
+			</li>
+			<li class="list-group-item">
+				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Orgánigo</h4>
+				<p>Favorecer los cultivos orgámigos</p>
+			</li>
+			<li class="list-group-item">
+				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Inovante</h4>
+				<p>Proponer un nuevo modo de consumo a la vez mas consciente pero tambíen moderno y eficiente </p>
+			</li>
+			<li class="list-group-item">
+				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Justo</h4>
+				<p>Queremos ofrecer un precio justo tan para lo que produce comó para lo que compra. Con menos intermedarios y menos gastos fijos eso lo podemos ofrecer.
+				<br>Cada productor es libre de elegir el precio que quiere para sus productos. Una pequeña parte de la venta beneficia al organizador de la venta y otra para cobrar los gastos de la plataforma pero tabien para inverciones que pordan beneficiar a los productores.
+				</p>
+			</li>
+		</ul>
+		<h2 class="text-center">¿ Que te ofrecemos </h2>
+		<ul class="list-group">
+			<li class="list-group-item">
+				 <h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Plataforma</h4>
+				<p>Te damos las heramientas a través de nuestra plataforma para ordenar productos locales selectionados por sus cualidades nutritiva, gustativa y que respeté al máximo al medio ambiante durante su elaboracíon.
+				<br>La misma plataforma facilita mucho la creacíon de varias otras eco-comunidades conectando productores y consumidores
+				</p>
+			</li>
+			<li class="list-group-item">
+				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Libertad</h4>
+				<p>Una vez inscrito a una o variaos eco-lugares, vas a recibir avisos de las proximás ventas. Puedes participar o no a la venta, simpre tú decides que y cuando comprar. </p>
+			</li>
+			<li class="list-group-item">
+				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Inovante</h4>
+				<p>Proponer un nuevo modo de consumo a la vez mas consciente pero tambíen moderno y eficiente </p>
+			</li>
+		</ul>
+		<img src="/img/blur2.jpg" alt="rounded Image" class="img-rounded center-block eco-img">  	
+	</div>	
+</div><!-- end main -->
 
 <?php include 'footer.php'; ?>
 
@@ -46,6 +126,9 @@
 	<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+	<script src="jasny-bootstrap/js/jasny-bootstrap.js" type="text/javascript"></script>
+	
+	
 	<script src="assets/js/gsdk-checkbox.js"></script>
 	<script src="assets/js/gsdk-radio.js"></script>
 	<script src="assets/js/gsdk-bootstrapswitch.js"></script>
