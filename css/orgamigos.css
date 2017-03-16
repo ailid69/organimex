@@ -81,18 +81,34 @@
 	background-color: #D46A6A;
 	border : 5px solid #801515;
 }
-#section2 {
-	background-color: #226666;
-}#section3 {
-	background-color: #7B9F35;
-}#section4 {
+#section3 {
 	background-color: #2D882D;
+}
+#section3 .panel {
+        background: none;
+}
+#section3 .panel, .panel > .panel-heading, .panel-title .panel-group{
+        /* background: rgba(0, 0, 0, 0.1)!important; */
+		background : #55AA55;
+		
+
+}
+#section3 .panel-body{
+        /* background: rgba(0, 0, 0, 0.1)!important; */
+		background : #88CC88;
+}	
+	
+}#section3 {
+	background-color: #226666;
+}#section4 {
+	background-color: #7B9F35;
 }#section5 {
 	background-color: #AA3939;
 }
 #section6 {
 	background-color: #226666;
-}	
+}
+	
 
 
 /* GREY GRADIENT MODE */

@@ -207,7 +207,7 @@
 				</h1>	
 			</div>
 		</div>				
-			<div class="panel panel-primary">
+			<div class="panel">
 				 <div class="panel-heading">Conecarse co Facebook (o no)</div>
 				 <div class="panel-body">
 					<div class="row ">
