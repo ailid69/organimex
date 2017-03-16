@@ -6,7 +6,7 @@
         -->
 		
 		<!-- ONLY HOME PAGE HAS THE TRANSPARENT NAVIGATION AND BLURRED CONTAINTER -->
-		<?php if (true) : ?>
+		<?php if ($isHome) : ?>
 		<nav class="navbar-transparent navbar navbar-ct-green navbar-fixed-top" role="navigation">
 		<?php else : ?>
 		<nav class="navbar navbar-ct-green navbar-fixed-top" role="navigation">
@@ -41,9 +41,8 @@
 			</div><!-- /.container-fluid -->
         </nav>
 		        <!-- ONLY HOME PAGE HAS THE BLURRED CONTAINER -->
-                <?php if($_SERVER['REQUEST_URI'] ==='/index.php') : ?>
-				
-				
+                <?php if($isHome) : ?>
+
                 <div class="ecoblur-container">
 						<!--
 						<div class="motto">
