@@ -6,12 +6,12 @@
         -->
 		
 		<!-- ONLY HOME PAGE HAS THE TRANSPARENT NAVIGATION AND BLURRED CONTAINTER -->
-		<?php if(($_SERVER['REQUEST_URI'] == '/index.php') | ($_SERVER['REQUEST_URI'] == '/')) : ?>
+		<?php if (true) : ?>
 		<nav class="navbar-transparent navbar navbar-ct-green navbar-fixed-top" role="navigation">
 		<?php else : ?>
 		<nav class="navbar navbar-ct-green navbar-fixed-top" role="navigation">
 		<?php endif ?>
-				
+				<?php echo '<H2>isHome=' . $isHome . '</H2>' ?>
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="container">
 				<div class="navbar-header">

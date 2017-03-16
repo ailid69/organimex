@@ -26,7 +26,7 @@
 </head>
 
 <body>
- <?php include 'header.php'; ?>
+ <?php $isHome = true; include 'header.php'; ?>
 
 <div id="4href1"></div>
 <div class="eco-main" style="eco-color" >
