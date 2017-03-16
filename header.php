@@ -11,7 +11,7 @@
 		<?php else : ?>
 		<nav class="navbar navbar-ct-green navbar-fixed-top" role="navigation">
 		<?php endif ?>
-				<?php echo '<H2>isHome=' . $isHome . '</H2>' ?>
+				
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="container">
 				<div class="navbar-header">

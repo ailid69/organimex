@@ -31,7 +31,7 @@
 <div id="4href1"></div>
 <div class="eco-main" style="eco-color" >
 
-    <div class="container eco-container" id="section1">
+    <div class="container eco-container" id="section1" style="padding-top : 100px;" >
 	   <h1 class="text-center">¿ Comó fonctiona ?<small class="subtitle">Es súper simple !</small></h1>
        
 	   <img src="/img/circle1.png" alt="Circle Image" class="img-circle center-block eco-circleimg">

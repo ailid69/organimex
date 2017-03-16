@@ -24,7 +24,6 @@
     
 	<link href="assets/css/gsdk.css" rel="stylesheet" />   
     <link href="assets/css/demo.css" rel="stylesheet" /> 
-
 	<link href="css/orgamigos.css" rel="stylesheet" />
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -194,11 +193,10 @@
    
 </script>
 
-
 <?php include 'header.php'; ?>
 
-<div class="main">
-	<div class="container tim-container" style="max-width:800px; padding-top:100px; padding-bottom:50px;" >
+<div class="eco-main" style="eco-color" >
+	<div class="container eco-container" id="section3" style="padding-top : 100px;" >
 		<div class="row">
 			<div class="col-sm-10 col-sm-offset-1">
 				<h1 class="text-center">
