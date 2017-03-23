@@ -1,5 +1,8 @@
+<?php 
+ require_once 'config.php';
+ ?>
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
@@ -22,16 +25,39 @@
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
-  
+  	
+	<style type="text/css">
+      #map {
+        height: 50%;
+      }
+	  html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
 </head>
 
 <body>
- <?php $isHome = true; include 'header.php'; ?>
+ <?php $isHome = true; include 'header.php'; ?>	
 
-<div id="4href1"></div>
-<div class="eco-main" style="eco-color" >
+<div class="main eco-main" style="eco-color" >
+	<div class="container eco-container" id="section3" style="padding-top : 100px;" >
+		<form data-toggle="validator" role="form" method="POST" id="gmap_form"> 	
+		</form>
+		<h1 class="text-center">¡ Encontra el eco-lugar mas cerca de tu zona !<small class="subtitle">Esperamos abrir muchos</small></h1>
+       
+	   <img src="/img/circle2.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
 
-    <div class="container eco-container" id="section1" style="padding-top : 100px;" >
+	   <h2 class="text-center">Usa el mapa ... </h2>
+       
+	</div>
+</div>
+<div id="map"></div>
+<div class="main eco-main" style="eco-color" >
+	<div id="4href1"></div>
+    <div class="container eco-container" id="section1" >
+	
 	   <h1 class="text-center">¿ Comó fonctiona ?<small class="subtitle">Es súper simple !</small></h1>
        
 	   <img src="/img/circle1.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
@@ -72,7 +98,7 @@
 
 
 <div id="4href2"></div>
-<div class="eco-main">
+<div class="main eco-main">
     <div class="container eco-container" id="section2" >
 		<h1 class="text-center">Lo que cuenta para nosotros<small class="subtitle">Favorecer circuitos cortos</small></h1>   
 		<img src="/img/circle2.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
@@ -134,6 +160,13 @@
 	<script src="assets/js/gsdk-bootstrapswitch.js"></script>
 	<script src="assets/js/get-shit-done.js"></script>
 	
-    <script src="assets/js/custom.js"></script>
+    <!-- The blurry effect on backgroun d image on scroll
+	<script src="assets/js/custom.js"></script>
+	!-->
+	
+	<!-- GMaps integration -->
+	<script src="js/gmaps.js"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY ?>&callback=initMap"></script>
+
 
 </html>

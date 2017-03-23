@@ -3,27 +3,44 @@
 		Login with Facebook 
 		Uses Facebook SDK for JavaScript (see <scripts>)
 	-------------------------------------------------------------------------------------------------*/	
-	require_once 'functions.php'; 
+	require_once 'config.php';
 	require_once __DIR__ . '/vendor/autoload.php';
 	
-	if (!session_id()) {
-		session_start();
-	}
+
 	$fb = new Facebook\Facebook([
-  'app_id' => '1465837763458763', // Replace {app-id} with your app id
-  'app_secret' => '6b10eb5ee969eda762b07b478f2414c7',
-  'default_graph_version' => 'v2.8',
-  ]);
+		'app_id' => APP_ID, // Replace {app-id} with your app id
+		'app_secret' => APP_SECRET,
+		'default_graph_version' => 'v2.8',
+		 'persistent_data_handler'=>'session'
+	]);
 
 $helper = $fb->getRedirectLoginHelper();
-
 $permissions = ['email']; // Optional permissions
-$loginUrl = $helper->getLoginUrl(WEBSITE . '/fb-config.php', $permissions);
+$loginUrl = $helper->getLoginUrl(LOGIN_URL, $permissions);
+
+if (isset($_SESSION['fb_access_token'])){
+	try {
+  // Returns a `Facebook\FacebookResponse` object
+  $response = $fb->get('/me?fields=id,age_range,email,birthday,first_name,gender,last_name,name', $_SESSION['fb_access_token']);
+  $user = $response->getGraphUser();
+  
+ // $response = $fb->get('/me?fields=cover', $_SESSION['fb_access_token']);
+ // $image = $response->getGraphUser();
+  
+
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  echo 'Graph returned an error: ' . $e->getMessage();
+  exit;
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  exit;
+}
+}
 
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
@@ -43,7 +60,7 @@ $loginUrl = $helper->getLoginUrl(WEBSITE . '/fb-config.php', $permissions);
 	
 	<link href="css/login.css" rel="stylesheet" />
 	<link href="css/orgamigos.css" rel="stylesheet" />
-	
+	<link href="css/bootstrap-social.css" rel="stylesheet" />
     <!--     Font Awesome     -->
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
@@ -51,46 +68,34 @@ $loginUrl = $helper->getLoginUrl(WEBSITE . '/fb-config.php', $permissions);
 <body>
 <?php include 'header.php'; ?>
 
-	<div class="main" id="registerForm">
-		<div class="container tim-container" style="max-width:800px; padding-top:100px; padding-bottom:50px;">
-		   <div class="tim-title">
+	<div class="main eco-main" id="registerForm">
+		<div class="container eco-container" id="section1" style="padding-top:100px; padding-bottom:50px;">
+		    <div class="tim-title">
 				<h1 class="text-center">
-					Por favor ingresate o <a href="join.php">Inscribete</a><br><small class="subtitle">Puedes connectar con Facebook, solo utisamos to correo electronico, nada mas.</small>
+					Iniciar sesión <small class="subtitle">Si no cuentas con nosotros todavia puedes <a href="join.php">abrir una cuenta</a><br></small>
 				</h1>
 			</div> 
-			<div class="container-fluid">
-	
-				<?php if ($_SESSION['FBID']): ?>      <!--  After user login  -->
-					<div class="row ">
-						<div class="col-sm-2">
-							<img src="https://graph.facebook.com/<?php echo $_SESSION['FBID']; ?>/picture?width=120" alt="Circle Image" class="img-circle img-responsive" width="120" height="120">
+			<div class = "eco-panel rounded-panel small-panel white-bg ">
+				<div class="container-fluid">
+				<?php if (isset($_SESSION['fb_access_token'])): ?>     <!--  After user login  -->
+					<h4 class="text-center">Hola <? echo $user['name'] ?></h4>
+						<div class="eco-row">
+							<img src="https://graph.facebook.com/<? echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
 						</div>
-						<div class="col-sm-10">
-							
-							<div class="row ">
-								<div class="col-sm-12">
-									<h5>Hola org@migo <?php echo $_SESSION['FULLNAME']; ?></h5>
-								</div>
-							</div>
-							<div class="row ">
-								<div class="col-sm-6">
-									<a href="join.php" class="btn btn-lg btn-info btn-fill">Abrir una cuenta</a>
-								</div>
-								<div class="col-sm-6">
-									<a href="logout.php" class="btn btn-lg btn-info btn-fill">Desconectar de Facebook</a>
-								</div>
-							</div>	
-						</div>
-					</div>
+						<a class="btn btn-block btn-social btn-facebook center-block" href="logout.php">
+							<span class="fa fa-facebook"></span> Cerrar la sesíon con Facebook
+						</a>
 
 				<?php else: ?>     <!-- Before login --> 
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12">
-							<a href="fb-config.php" class="btn btn-lg btn-info btn-fill">Connectarse con Facebook</a>
+							<a class="btn btn-block btn-social btn-facebook center-block" href="<? echo htmlspecialchars($loginUrl) ?>">
+						<span class="fa fa-facebook"></span> Iniciar sesión con Facebook
+					</a>
 						</div>
 					</div>				
 				<?php endif ?>
-			</div>
+				</div>
 		
 			  <div class="login-or">
 				<hr class="hr-or">
@@ -99,25 +104,25 @@ $loginUrl = $helper->getLoginUrl(WEBSITE . '/fb-config.php', $permissions);
 
 			  <form role="form">
 				<div class="form-group">
-				  <label for="inputUsernameEmail">Usario o correo</label>
-				  <input type="text" class="form-control" id="inputUsernameEmail">
+				  <!--label for="inputUsernameEmail">Correo electrónico</label!-->
+				  <input type="text" class="form-control" id="inputUsernameEmail" placeHolder="Correo electrónico">
 				</div>
 				<div class="form-group">
-				  <a class="btn btn-lg btn-info btn-simple" href="#">Olvidaste la contrasena?</a>
-				  <label for="inputPassword">Contrasena</label>
-				  <input type="password" class="form-control" id="inputPassword">
+				  <!--label for="inputPassword">Contraseña</label!-->
+				  <input type="password" class="form-control" id="inputPassword" placeHolder="Contraseña">
 				</div>
-				<div class="checkbox pull-right">
-				  <label>
-					<input type="checkbox">
-					Acuerdate de mi </label>
-				</div>
-				<button type="submit" class="btn btn btn-primary">
-				  Ingresar
+				
+				<button type="submit" class="btn  btn-primary btn-fill">
+				  Iniciar sesión
 				</button>
+		
+				<button href="#fakelink" class="btn btn-sm btn-primary btn-round">Olvidaste tu contraseña?</button>
+
 			  </form>	
-		</div>		
+			</div>
+		</div>
 	</div>
+
 <?php include 'footer.php'; ?>
 </body>
 
@@ -125,6 +130,6 @@ $loginUrl = $helper->getLoginUrl(WEBSITE . '/fb-config.php', $permissions);
 	<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
-
+	<script src="assets/js/gsdk-checkbox.js"></script>
 
 </html>

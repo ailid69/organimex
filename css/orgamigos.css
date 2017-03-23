@@ -6,14 +6,21 @@
 	position : relative;
 	background-color : white;
 }
-
+.eco-row{
+    margin-bottom: 20px;
+}
+.login-main{
+	width : 100%;
+	position : relative;
+	background-color : grey;
+}
 
 .eco-container {
 	background-color: transparent;
 	color : white;
 }
 
-.eco-container > p {
+.eco-container p {
 	text-align : center;
 }
 
@@ -41,9 +48,10 @@
   top:0;
   left:0;
 }
-.ecoblur-container > .img-src{
+.ecoblur-container .img-src{
     position:fixed;
     width:100%;
+	/* max-height :540px; */
     height:540px;
     background-repeat:no-repeat;
     background-size:cover;
@@ -58,14 +66,14 @@
 	color :white;
 }
 
-.thumbnail > .caption  {
+.thumbnail .caption  {
     color : white;
 }	
 .list-group{
 	 margin-top : 25px;
 }
 .list-group-item{
-	  background-color: #629999;
+	  background-color: #669999;
 	  color : white;
 }
 
@@ -81,25 +89,28 @@
 	background-color: #D46A6A;
 	border : 5px solid #801515;
 }
+
+#section2 {
+	background-color: #226666;
+}
 #section3 {
 	background-color: #2D882D;
 }
-#section3 .panel {
-        background: none;
-}
-#section3 .panel, .panel > .panel-heading, .panel-title .panel-group{
-        /* background: rgba(0, 0, 0, 0.1)!important; */
-		background : #55AA55;
-		
 
-}
-#section3 .panel-body{
-        /* background: rgba(0, 0, 0, 0.1)!important; */
+/*#section3 .eco-panel, #section3 .panel-title, #section3 .panel-group, #section3 .panel-group a:hover #section3 .panel-group a:focus #section3 .panel-group a:active{
+		background : #116611;
+		border-color : #116611;
+		color : white;
+}*/
+/*#section3 .panel-body{
 		background : #88CC88;
 }	
+*/
 	
-}#section3 {
-	background-color: #226666;
+section3 .panel-heading{
+		background : #88CC88;
+		color : white;
+}		
 }#section4 {
 	background-color: #7B9F35;
 }#section5 {
@@ -108,8 +119,56 @@
 #section6 {
 	background-color: #226666;
 }
-	
 
+
+.subtitle a {
+	font-family: 'Grand Hotel',cursive;
+    color:#999999; 
+}
+
+ .subtitle a:hover, .subtitle a:focus {
+    color:#888888; 
+    text-decoration: underline;
+}
+
+.subtitle a:active, .subtitle a:hover {
+    outline: 0;
+}
+
+.eco-panel {
+	padding-bottom: 50px;
+    padding-top: 50px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.03);
+    color: #999;
+    font-size: 13px;
+    line-height: 1.4em;
+    margin: 0 auto;
+	margin-bottom: 40px;
+    padding: 40px 40px;
+}
+.small-panel {
+	max-width: 400px;
+}
+.large-panel {
+	max-width: 500px;
+}
+
+.large-panel {
+	max-width: 600px;
+}
+.rounded-panel{
+	border-radius: 25px;
+    border: 2px solid;
+}
+
+.alert-fixed {
+    position:fixed; 
+    top: 0px; 
+    left: 0px; 
+    width: 100%;
+    z-index:9999; 
+    border-radius:0px
+}
 
 /* GREY GRADIENT MODE */
 .eco-color{
@@ -121,4 +180,81 @@ background: -o-linear-gradient(left, rgba(237,237,237,1) 0%, rgba(245,245,245,1)
 background: -ms-linear-gradient(left, rgba(237,237,237,1) 0%, rgba(245,245,245,1) 53%, rgba(255,255,255,1) 100%);
 background: linear-gradient(to right, rgba(237,237,237,1) 0%, rgba(245,245,245,1) 53%, rgba(255,255,255,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#ffffff', GradientType=1 );
+
 }
+
+/* COLORS DEFINITION */
+.white-bg  { background-color : white}
+.green-0-bg { background-color: #2D882D }	/* GREEN Main Complement color */
+.green-1-bg { background-color: #88CC88 ; border-color:#116611; color:white;} /* LIGHT */
+.green-2-bg { background-color: #55AA55 }
+.green-3-bg { background-color: #116611 } /* DARK */
+.red-0-bg { background-color: #AA3939 }	/* RED Main Primary color */
+.red-1-bg { background-color: #FFAAAA }
+.red-2-bg { background-color: #D46A6A }
+.red-3-bg { background-color: #801515 }
+.red-4-bg { background-color: #550000 }
+/* CSS - Cascading Style Sheet */
+/* Palette color codes */
+/* Palette URL: http://paletton.com/#uid=7000u0kllllaFw0g0qFqFg0w0aF */
+
+/* Feel free to copy&paste color codes to your application */
+
+
+/* As hex codes */
+
+.red-0 { color: #AA3939 }	/* RED Main Primary color */
+.red-1 { color: #FFAAAA }
+.red-2 { color: #D46A6A }
+.red-3 { color: #801515 }
+.red-4 { color: #550000 }
+
+.brown-0 { color: #AA6C39 }	/* BROWN  Main Secondary color (1) */
+.brown-1 { color: #FFD1AA }
+.brown-2 { color: #D49A6A }
+.brown-3 { color: #804515 }
+.brown-4 { color: #552600 }
+
+.blue-0 { color: #226666 }	/* BLUE Main Secondary color (2) */
+.blue-1 { color: #669999 }
+.blue-2 { color: #407F7F }
+.blue-3 { color: #0D4D4D }
+.blue-4 { color: #003333 }
+
+.green-0 { color: #2D882D }	/* GREEN Main Complement color */
+.green-1 { color: #88CC88 }
+.green-2 { color: #55AA55 }
+.green-3 { color: #116611 }
+.green-4 { color: #004400 }
+
+.white { color: #004400 }
+/* As RGBa codes */
+
+.rgba-primary-0 { color: rgba(170, 57, 57,1) }	/* Main Primary color */
+.rgba-primary-1 { color: rgba(255,170,170,1) }
+.rgba-primary-2 { color: rgba(212,106,106,1) }
+.rgba-primary-3 { color: rgba(128, 21, 21,1) }
+.rgba-primary-4 { color: rgba( 85,  0,  0,1) }
+
+.rgba-secondary-1-0 { color: rgba(170,108, 57,1) }	/* Main Secondary color (1) */
+.rgba-secondary-1-1 { color: rgba(255,209,170,1) }
+.rgba-secondary-1-2 { color: rgba(212,154,106,1) }
+.rgba-secondary-1-3 { color: rgba(128, 69, 21,1) }
+.rgba-secondary-1-4 { color: rgba( 85, 38,  0,1) }
+
+.rgba-secondary-2-0 { color: rgba( 34,102,102,1) }	/* Main Secondary color (2) */
+.rgba-secondary-2-1 { color: rgba(102,153,153,1) }
+.rgba-secondary-2-2 { color: rgba( 64,127,127,1) }
+.rgba-secondary-2-3 { color: rgba( 13, 77, 77,1) }
+.rgba-secondary-2-4 { color: rgba(  0, 51, 51,1) }
+
+.rgba-complement-0 { color: rgba( 45,136, 45,1) }	/* Main Complement color */
+.rgba-complement-1 { color: rgba(136,204,136,1) }
+.rgba-complement-2 { color: rgba( 85,170, 85,1) }
+.rgba-complement-3 { color: rgba( 17,102, 17,1) }
+.rgba-complement-4 { color: rgba(  0, 68,  0,1) }
+
+
+
+/* Generated by Paletton.com © 2002-2014 */
+/* http://paletton.com */

@@ -1,9 +1,10 @@
 var transparentDemo = true;
 var fixedTop = false;
 
-$(window).scroll(function(e) {
-    oVal = ($(window).scrollTop() / 170);
-    $(".blur").css("opacity", oVal);
-    
+$(document).scroll(function(e) {
+    console.log('scrolling ...');
+	oVal = ($(document).scrollTop() / 170);
+    $(".ecoblur-container").css("opacity", oVal);
+    console.log('custom.js ...');
 });
 
