@@ -1,3 +1,47 @@
+#map {
+        height: 70%;
+		width : 80%;
+
+	
+        padding: 0;
+		margin : auto;
+      }
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+ul.dropdown-menu{
+	  min-width : 250px;
+}
+.leftnav-margin{
+	margin-left : 150px;
+	padding-top : 100px;
+}
+.navbar-fixed-left {
+  width: 140px;
+  position: fixed;
+  border-radius: 0;
+  height: 100%;
+  margin-top : 70px;
+}
+.navbar-fixed-left a {
+	    font-size: 12px;
+}
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 139px;
+}
+
+.navbar-fixed-left + .container {
+  padding-left: 160px;
+}
+
+/* On using dropdown menu (To right shift popuped) */
+.navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+  margin-top: -50px;
+  margin-left: 140px;
+}
 /* .main { 
     background-color:  rgba(76, 217, 100, 0.98);
 } */
@@ -88,6 +132,7 @@
 #section1 .thumbnail{
 	background-color: #D46A6A;
 	border : 5px solid #801515;
+	border-radius : 15px ;
 }
 
 #section2 {
@@ -163,11 +208,12 @@ section3 .panel-heading{
 
 .alert-fixed {
     position:fixed; 
-    top: 0px; 
+    top: 80px; 
     left: 0px; 
     width: 100%;
     z-index:9999; 
-    border-radius:0px
+    border-radius:0px;
+	;
 }
 
 /* GREY GRADIENT MODE */
@@ -184,16 +230,31 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
 }
 
 /* COLORS DEFINITION */
-.white-bg  { background-color : white}
+.white  { color : #FFFFFF}
+.white-bg  { background-color : #FFFFFF}
+
 .green-0-bg { background-color: #2D882D }	/* GREEN Main Complement color */
 .green-1-bg { background-color: #88CC88 ; border-color:#116611; color:white;} /* LIGHT */
 .green-2-bg { background-color: #55AA55 }
 .green-3-bg { background-color: #116611 } /* DARK */
+
 .red-0-bg { background-color: #AA3939 }	/* RED Main Primary color */
 .red-1-bg { background-color: #FFAAAA }
 .red-2-bg { background-color: #D46A6A }
 .red-3-bg { background-color: #801515 }
 .red-4-bg { background-color: #550000 }
+
+.blue-0-bg  { background-color: #226666 }	/* BLUE Main Secondary color (2) */
+.blue-1-bg  { background-color: #669999 }
+.blue-2-bg  { background-color: #407F7F }
+.blue-3-bg  { background-color: #0D4D4D }
+.blue-4-bg  { background-color: #003333 }
+
+.brown-0-bg  { background-color: #AA6C39 }	/* BROWN  Main Secondary color (1) */
+.brown-1-bg  { background-color: #FFD1AA }
+.brown-2-bg  { background-color: #D49A6A }
+.brown-3-bg  { background-color: #804515 }
+.brown-4-bg  { background-color: #552600 }
 /* CSS - Cascading Style Sheet */
 /* Palette color codes */
 /* Palette URL: http://paletton.com/#uid=7000u0kllllaFw0g0qFqFg0w0aF */
@@ -227,7 +288,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
 .green-3 { color: #116611 }
 .green-4 { color: #004400 }
 
-.white { color: #004400 }
+
 /* As RGBa codes */
 
 .rgba-primary-0 { color: rgba(170, 57, 57,1) }	/* Main Primary color */

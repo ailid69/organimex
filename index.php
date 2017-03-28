@@ -1,6 +1,3 @@
-<?php 
- require_once 'config.php';
- ?>
 <!doctype html>
 <html lang="es">
 <head>
@@ -26,34 +23,39 @@
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
   	
-	<style type="text/css">
-      #map {
-        height: 50%;
-      }
-	  html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+      
+	
     </style>
 </head>
 
 <body>
- <?php $isHome = true; include 'header.php'; ?>	
+
+<?php include 'handle_notification.php'; ?>
+<?php $isHome = true; include 'header.php'; ?>	
 
 <div class="main eco-main" style="eco-color" >
 	<div class="container eco-container" id="section3" style="padding-top : 100px;" >
 		<form data-toggle="validator" role="form" method="POST" id="gmap_form"> 	
 		</form>
-		<h1 class="text-center">¡ Encontra el eco-lugar mas cerca de tu zona !<small class="subtitle">Esperamos abrir muchos</small></h1>
+		<h1 class="text-center">¡ Encontra el eco-lugar mas cerca de tu zona !
+			<small class="subtitle">Esperamos abrir muchos más muy pronto</small>
+		</h1>
        
-	   <img src="/img/circle2.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
-
+	   <img src="/img/circle3.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
 	   <h2 class="text-center">Usa el mapa ... </h2>
-       
 	</div>
-</div>
+</div>	
+
+<!-- Google Maps integration - Can't put that div anywhere else ... -->
 <div id="map"></div>
+<!-- Google Maps integration
+ -->
+<div class="main eco-main" style="eco-color" >
+	<div class="container eco-container" id="section3" >
+		<img src="/img/blur3.jpg" alt="rounded Image" class="img-rounded center-block eco-img"> 
+	</div>
+</div>	
+	
 <div class="main eco-main" style="eco-color" >
 	<div id="4href1"></div>
     <div class="container eco-container" id="section1" >

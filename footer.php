@@ -26,6 +26,8 @@
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<div class="container">
 					<p>$_SESSION : <?php var_dump($_SESSION); ?></p>
+					<p>$POST : <?php var_dump($_POST); ?></p>
+					<p>$_GET : <?php var_dump($_GET); ?></p>
 					<!--<p>$_SERVER : <?php var_dump($_SERVER); ?></p>-->
 				</div>
 			</div>

@@ -18,17 +18,15 @@ print_r($_SESSION);
 echo '***** ************************** *****';
 */
 
+$myredirection = $_SESSION['from_page'] ;
+
 $fb = new Facebook\Facebook([
 		'app_id' => APP_ID, // Replace {app-id} with your app id
 		'app_secret' => APP_SECRET,
 		'default_graph_version' => 'v2.8',
 		 'persistent_data_handler'=>'session'
   ]);
-/*
-echo '<br><br>***** SESSION AFTER NEW FACEBOOK() *****<br><br>';
-	print_r($_SESSION);
-	echo '<br><br>***** ************************** *****<br><br>';  
-*/
+
 $helper = $fb->getRedirectLoginHelper();
 
 try {
@@ -39,20 +37,27 @@ try {
   exit;
 } catch(Facebook\Exceptions\FacebookSDKException $e) {
   // When validation fails or other local issues
-  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+  $error =  'Facebook SDK returned an error: ' . $e->getMessage();
+  header ('Location: ' . $myredirection . '?error="' . $error . '"' );
   exit;
 }
 
 if (! isset($accessToken)) {
   if ($helper->getError()) {
-    header('HTTP/1.0 401 Unauthorized');
+    /*header('HTTP/1.0 401 Unauthorized');
     echo "Error: " . $helper->getError() . "\n";
     echo "Error Code: " . $helper->getErrorCode() . "\n";
     echo "Error Reason: " . $helper->getErrorReason() . "\n";
-    echo "Error Description: " . $helper->getErrorDescription() . "\n";
+    echo "Error Description: " . $helper->getErrorDescription() . "\n";*/
+	
+	$error =  'Facebook no dío el permiso para conectarte<br>Error: ' . $helper->getError() . '<br>Error Code: ' . $helper->getErrorCode() . '<br>Error Reason: ' . $helper->getErrorReason() .  '<br>Error Description: ' . $helper->getErrorDescription();
+	header ('Location: ' . $myredirection . '?error="' . $error. '"' );
+	
   } else {
-    header('HTTP/1.0 400 Bad Request');
-    echo 'Bad request';
+    //header('HTTP/1.0 400 Bad Request');
+    //echo 'Bad request';
+	$error =  'Hubó un problema con la conección a Facebook';
+	header ('Location: ' . $myredirection . '?error="'. $error . '"' );
   }
   exit;
 }
@@ -80,7 +85,11 @@ if (! $accessToken->isLongLived()) {
   try {
     $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
   } catch (Facebook\Exceptions\FacebookSDKException $e) {
-    echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
+    //echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
+	
+	$error =  'Error getting long-lived access token: ' . $helper->getMessage();
+	header ('Location: ' . $myredirection . '?error="' . $error . '"' );
+	
     exit;
   }
 /*
@@ -95,7 +104,8 @@ $_SESSION['fb_access_token'] = (string) $accessToken;
 //header('Location: https://example.com/members.php');
 //header('Location: '. WEBSITE . $_SERVER['REQUEST_URI']);
 
-header ('Location: ' . $_SERVER['HTTP_REFERER']);
+unset( $_SESSION[ 'from_page' ] );
+header ('Location: ' . $myredirection);
 
 
 

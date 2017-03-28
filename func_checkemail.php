@@ -7,18 +7,14 @@
 	Si le paramètre id est spécifié dans l'URL alors on exclu l'email de l'utilisateur de la recherche 
 	(dans le cas ou l'utilisateur modifie ses propres informations, l'email existe déjà mais ce n'est pas un problème)
 -------------------------------------------------------------------------------------------------*/		
-echo 'POST TON POST = ' . var_dump($_POST) . '<br><br>';
+/*echo 'POST TON POST = ' . var_dump($_POST) . '<br><br>';
 echo 'POST TON REQUEST = ' . var_dump($_REQUEST). '<br><br>';
 echo 'POST TON GET = ' .  var_dump($_GET). '<br><br>';
-echo 'POST TON SERVER = ' . var_dump($_SERVER). '<br><br>';
-if (!empty($_GET['email'])){
-	$email = $db->quote($_GET['email']);
-	if (!empty($_GET['UID'])){	
-		$query = "SELECT UID FROM users WHERE UID <> {$_GET['UID']} AND email = {$email};";
-	}
-	else{
-		$query = "SELECT UID FROM users WHERE email = {$email};";
-	}
+echo 'POST TON SERVER = ' . var_dump($_SERVER). '<br><br>';*/
+if (!empty($_GET['uemail'])){
+	$email = $db->quote($_GET['uemail']);
+	$query = "SELECT UID FROM users WHERE email = {$email};";
+	
 	try{ 
             $stmt = $db->prepare($query); 
             $stmt->execute(); 

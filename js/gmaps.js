@@ -2,18 +2,24 @@ var map;
 var marker;
 var infowindow;
 var messagewindow;
+var icons;
 
 var customLabel = {
   abierto: {
-    label: 'A'
+    label: 'A',
+	icon: 'img/map-marker-green.png'
   },
   cerrado: {
-    label: 'C'
+    label: 'C',
+	icon: 'img/map-marker-red.png'
   },
    proyecto: {
-    label: 'P'
+    label: 'P',
+	icon: 'img/map-marker-blue.png'
   }
-};	
+};
+  
+  
 function initMap() {
 	var jocotan = {lat: 20.6872101, lng: -103.4388916};
 
@@ -21,6 +27,7 @@ function initMap() {
 	  center: jocotan,
 	  zoom: 13
 	});
+	mapTypeId: 'roadmap';
 
 	infowindow = new google.maps.InfoWindow({
 		content: document.getElementById('gmap_form')
@@ -92,7 +99,8 @@ function loadMarkers(XMLFile) {
     var marker = new google.maps.Marker({
       map: map,
       position: point,
-      label: icon.label
+      icon: icon.icon,
+	  label: icon.label
     });
 	marker.addListener('click', function() {
 		infowindow.setContent(infowincontent);

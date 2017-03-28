@@ -16,7 +16,7 @@
             <div class="container">
 				<div class="navbar-header">
 					<!--button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#bs-example-navbar-collapse-1" data-canvas="body"!-->
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"!>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -47,7 +47,7 @@
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="login.php">Iniciar sesión</a></li>
 							<li role="presentation"><a role="menuitem" tabindex="-1" href="logout.php">Desconectarse</a></li>
 							<li role="presentation" class="divider"></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="join.php">Abrir una cuenta</a></li>
+							<li role="presentation"><a role="menuitem" tabindex="-1" href="signup.php">Abrir una cuenta</a></li>
 						  </ul>
 
 						</li>
@@ -55,7 +55,7 @@
 					
 					
 					
-					<!--li><a href="join.php" class="btn btn-simple btn-default">Abrir una cuenta</a></li>		
+					<!--li><a href="signup.php" class="btn btn-simple btn-default">Abrir una cuenta</a></li>		
 					
 						<li><a href="login.php" class="btn btn-round btn-default">Iniciar sesión</a></li>		
 					</ul-->
@@ -80,4 +80,5 @@
 						</div>
                 </div>
                 <?php endif ?>
+</div>
 </div>

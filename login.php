@@ -3,17 +3,34 @@
 		Login with Facebook 
 		Uses Facebook SDK for JavaScript (see <scripts>)
 	-------------------------------------------------------------------------------------------------*/	
-	require_once 'config.php';
-	require_once __DIR__ . '/vendor/autoload.php';
+require_once 'config.php';
+require_once 'class.user.php';
+
+/* Facebook integration */
+require_once __DIR__ . '/vendor/autoload.php';
+$_SESSION['from_page']='login.php';
+$fb = new Facebook\Facebook([
+	'app_id' => APP_ID,
+	'app_secret' => APP_SECRET,
+	'default_graph_version' => 'v2.8',
+	'persistent_data_handler'=>'session'
+]);
+
+$user_login = new USER();
+
+if($user_login->is_logged_in()!=""){
+	$user_login->redirect('home.php');
+}
+
+if(isset($_POST['btn-login'])){
+	$email = trim($_POST['txtemail']);
+	$upass = trim($_POST['txtupass']);
+	if($user_login->login($email,$upass)) {
+		$user_login->redirect('home.php');
+	}
+}
 	
-
-	$fb = new Facebook\Facebook([
-		'app_id' => APP_ID, // Replace {app-id} with your app id
-		'app_secret' => APP_SECRET,
-		'default_graph_version' => 'v2.8',
-		 'persistent_data_handler'=>'session'
-	]);
-
+	
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email']; // Optional permissions
 $loginUrl = $helper->getLoginUrl(LOGIN_URL, $permissions);
@@ -66,13 +83,14 @@ if (isset($_SESSION['fb_access_token'])){
     <link href='http://fonts.googleapis.com/css?family=Grand+Hotel' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<?php include 'handle_notification.php'; ?>
 <?php include 'header.php'; ?>
 
 	<div class="main eco-main" id="registerForm">
 		<div class="container eco-container" id="section1" style="padding-top:100px; padding-bottom:50px;">
 		    <div class="tim-title">
 				<h1 class="text-center">
-					Iniciar sesión <small class="subtitle">Si no cuentas con nosotros todavia puedes <a href="join.php">abrir una cuenta</a><br></small>
+					Iniciar sesión <small class="subtitle">Si no cuentas con nosotros todavia puedes <a href="signup.php">abrir una cuenta</a><br></small>
 				</h1>
 			</div> 
 			<div class = "eco-panel rounded-panel small-panel white-bg ">
@@ -102,21 +120,36 @@ if (isset($_SESSION['fb_access_token'])){
 				<span class="span-or">sino</span>
 			  </div>
 
-			  <form role="form">
-				<div class="form-group">
+			<form data-toggle="validator" role="form" method="POST" id="loginForm">
+				<div class="form-group has-feedback">
 				  <!--label for="inputUsernameEmail">Correo electrónico</label!-->
-				  <input type="text" class="form-control" id="inputUsernameEmail" placeHolder="Correo electrónico">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+						<input	type="email" class="form-control" 
+							id="inputUsernameEmail" name="txtemail" placeHolder="Dirección de correo electroníco"
+							required
+							data-error="La dirección es incorecta o vacía"						
+						>
+						<span class="glyphicon form-control-feedback" aria-hidden="true"></span>						
+					</div>
+					<div class="help-block with-errors"></div>
 				</div>
-				<div class="form-group">
-				  <!--label for="inputPassword">Contraseña</label!-->
-				  <input type="password" class="form-control" id="inputPassword" placeHolder="Contraseña">
+				<div class="form-group has-feedback">
+					<!--label for="inputPassword">Contraseña</label!-->
+					<div class="input-group">
+						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+						<input 	type="password" class="form-control" 
+							id="inputPassword" name="txtupass" placeHolder="Contraseña">
+						<span class="glyphicon form-control-feedback" aria-hidden="true"></span>	
+					</div>
+					<div class="help-block with-errors"></div>
 				</div>
-				
-				<button type="submit" class="btn  btn-primary btn-fill">
-				  Iniciar sesión
+
+				<button type="submit" class="btn  btn-primary btn-fill" id="btn-login" name="btn-login">
+				  Ingresar
 				</button>
 		
-				<button href="#fakelink" class="btn btn-sm btn-primary btn-round">Olvidaste tu contraseña?</button>
+				<a href="forgetpass.php" class="btn btn-sm btn-primary btn-round">Olvidaste tu contraseña?</a>
 
 			  </form>	
 			</div>
@@ -125,11 +158,11 @@ if (isset($_SESSION['fb_access_token'])){
 
 <?php include 'footer.php'; ?>
 </body>
+   <!--script src="jquery/jquery-1.10.2.js" type="text/javascript"></script!-->
+	<!--script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script!-->
 
-    <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
-
+	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
-	<script src="assets/js/gsdk-checkbox.js"></script>
+	<script src="assets/js/validator.min.js" type="text/javascript"></script>
 
 </html>

@@ -1,8 +1,16 @@
 <?php 
 require_once 'config.php'; 
+require_once 'class.user.php';
+$user = new USER();
 
-session_destroy();
+if(!$user->is_logged_in())
+{
+ $user->redirect('index.php');
+}
 
-header ('Location: '.$_SERVER['HTTP_REFERER']); 
-
+if($user->is_logged_in()!="")
+{
+ $user->logout(); 
+ $user->redirect('login.php?logout');
+}
 ?>
