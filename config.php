@@ -9,7 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 /* Connection string to the DataBase */
 	define("USERNAME","webuser");
 	define("PASSWORD","PJOJUFDU");
-	define("HOST","192.168.0.2");
+	define("HOST","localhost");
 	define("DBNAME","ORGAMIGOS");
 /* ------------------------- FACEBOOK INTEGRATION ----------------------- */		
 	define("APP_ID" , "1465837763458763"); // Replace {app-id} with your Facebok app id
