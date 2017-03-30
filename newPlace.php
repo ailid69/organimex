@@ -9,7 +9,7 @@ require_once 'config.php';
 	<link rel="icon" type="image/png" href="img/favicon-16x16.png">	
 	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Org@migos - Abrir un lugar para organisar ecoventas</title>
+	<title>Org@migos - Abrir un lugar para organizar ecoventas</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -46,7 +46,7 @@ require_once 'config.php';
 		
 <div class="main eco-main" style="eco-color" >
 	<div class="container eco-container" id="section1" style="padding-top : 100px;" >
-	   <h1 class="text-center">Abrir un lugar para organisar ecoventas<small class="subtitle">Es súper simple !</small></h1>
+	   <h1 class="text-center">Abrir un lugar para organizar ecoventas<small class="subtitle">Es súper simple !</small></h1>
        
 	   <img src="/img/circle1.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
 
@@ -99,7 +99,7 @@ require_once 'config.php';
 						<div class="form-group">
 							<label class="radio ct-azzure">
 								<input type="radio" name="inputType" data-toggle="radio" id="optionsRadios1" value="abierto" disabled>
-								 <i></i>Abiereto
+								 <i></i>Abierto
 							</label>
 
 							<label class="radio ct-green">

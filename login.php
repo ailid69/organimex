@@ -96,9 +96,9 @@ if (isset($_SESSION['fb_access_token'])){
 			<div class = "eco-panel rounded-panel small-panel white-bg ">
 				<div class="container-fluid">
 				<?php if (isset($_SESSION['fb_access_token'])): ?>     <!--  After user login  -->
-					<h4 class="text-center">Hola <? echo $user['name'] ?></h4>
+					<h4 class="text-center">Hola <?php echo $user['name'] ?></h4>
 						<div class="eco-row">
-							<img src="https://graph.facebook.com/<? echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
+							<img src="https://graph.facebook.com/<?php echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
 						</div>
 						<a class="btn btn-block btn-social btn-facebook center-block" href="logout.php">
 							<span class="fa fa-facebook"></span> Cerrar la sesíon con Facebook

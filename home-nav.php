@@ -98,14 +98,14 @@ $nbHome = $stmt->rowCount();
 <span class="leftNavigationLink-content">
 	<img src="/assets/images/navigation/icon-producers.svg" alt="">
 	<img class="leftNavigationLink-activeImage" src="/assets/images/navigation/icon-producers-active.svg" alt="">
-	<span class="leftNavigationLink-text">Productores</span>
+	<span class="leftNavigationLink-text">Productóres</span>
 </span>
 <span class="leftNavigationLink-activeIndicator">
 	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 11 200">
 	<polygon fill="#1D1D1B" points="0,0 0,100 0,200 11,200 11,111 0,100 11,89 11,0 "></polygon>
 	</svg>
 </span>
-</a>
+</a>ñm
 </li>
   
       <?php if ($nbHome == 0 ) : ?>

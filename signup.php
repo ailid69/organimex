@@ -50,7 +50,7 @@
 		}
 		else{
 			if($reg_user->register($uemail,$ufname,$ulname,$upass,$code,$ufbid)){   
-				$id = $reg_user->lasdID();  
+				$id = $reg_user->lastID();  
 				$key = base64_encode($id);
 				$id = $key;
 				$message = "	Hola $ufname,
@@ -167,7 +167,7 @@
 				<h1 class="text-center">
 					Abrir una cuenta<br>
 					<small class="subtitle">
-						La inscripcion es gratuita y sin compromiso!<br>Puedes decidir que y cuando compras segun tus envidas.
+						La inscripcion es gratuita y sin compromiso!<br>Puedes decidir qué y cuándo compras según tus gustos.
 					</small>
 				</h1>	
 			</div>
@@ -240,11 +240,11 @@
 								name="upass" 
 								placeholder="Contraseña" 
 								data-error="Este campo no puede ser vacío"
-								data-minlength-error="Le falta caracteros"
+								data-minlength-error="Le falta caractéres"
 								required >
 								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
 							</div>
-							<div class="help-block with-errors">Son 6 caracters minimo</div>
+							<div class="help-block with-errors">Son 6 caractéres mínimo</div>
 						</div>				  
 					</div>
 				</div>
@@ -271,7 +271,7 @@
 						</div>
 					</div>
 				</div>
-				<h4>Hablanos un poco de ti</h4>
+				<h4>Háblanos un poco de ti</h4>
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
 						<div class="form-group has-feedback">
@@ -333,9 +333,9 @@
 				</div>
 				<h4>Registrarse con Facebook (o no*)</h4>
 				<?php if (isset($_SESSION['fb_access_token'])): ?>
-					<h4 class="text-center">Hola <? echo $user['name'] ?></h4>
+					<h4 class="text-center">Hola <?php echo $user['name'] ?></h4>
 					<div class="eco-row">
-						<img src="https://graph.facebook.com/<? echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
+						<img src="https://graph.facebook.com/<?php echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
 					</div>
 					<a class="btn btn-block btn-social btn-facebook center-block" href="logout.php">
 						<span class="fa fa-facebook"></span> Cerrar la sesíon con Facebook
@@ -343,14 +343,14 @@
 								
 				<?php else : ?>
 				
-					<a class="btn btn-block btn-social btn-facebook center-block" href="<? echo htmlspecialchars($loginUrl) ?>">
+					<a class="btn btn-block btn-social btn-facebook center-block" href="<?php echo htmlspecialchars($loginUrl) ?>">
 						<span class="fa fa-facebook"></span> Iniciar sesión con Facebook
 					</a>
 		
 				<?php endif ?>		
 			</form>	
 			
-			<div class="panel-group" id="accordion">
+<div class="panel-group" id="accordion">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
@@ -362,42 +362,17 @@
 		<div id="collapse1" class="panel-collapse in" style="height: auto;">
 			<div class="panel-body">
 				<p class="text-muted" style=" font-size: 14px; line-height: 1;">
-					Solo utilisamos Facebook para facilitarte la vida, nunca para utilisar tus datos personales.<br>
-					Te permite crear tu cuenta mas rapido porque recuperamos (SOLO) tu nombre, apellido, email y foto de perfil<br>
-					Si tu cuenta org@migos esta liada con tu cuenta Facebook, solo necesitas estar conectado al Face para entrar a nuestra plataforma.<br>
-					Necesitas ingresar tambien una contraseña para tu cuenta org@migos para que puedas tambien entrar a la plataforma sin tu cuenta Facebook.
+					Solo utilizamos Facebook para facilitarte la vida, nunca para utilizar tus datos personales.<br>
+					Te permite crear tu cuenta más rapido porque recuperamos (SOLO) tu nombre, apellido, email y foto de perfil<br>
+					Si tu cuenta org@migos esta ligada con tu cuenta Facebook, solo necesitas estar conectado al Face para entrar a nuestra plataforma.<br>
+					Necesitas ingresar támbien una contraseña para tu cuenta org@migos para que puedas támbien entrar a la plataforma sin tu cuenta Facebook.
 				</p>
 			</div>
 		</div>
 	</div>
 </div>
-			
-		</div>
-		<div class="eco-panel rounded-panel large-panel green-1-bg">
-			<div class="panel-heading">
-				<h3 class="text-center">Registrarse con Facebook (o no*)</h3>
-			</div>
-			<div class="panel-body">	
-			<?php if (isset($_SESSION['fb_access_token'])): ?>
-					<h4 class="text-center">Hola <? echo $user['name'] ?></h4>
-						<div class="eco-row">
-							<img src="https://graph.facebook.com/<? echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
-						</div>
-						<a class="btn btn-block btn-social btn-facebook center-block" href="logout.php">
-							<span class="fa fa-facebook"></span> Cerrar la sesíon con Facebook
-						</a>	
-								
-			<?php else : ?>
-			
-					<a class="btn btn-block btn-social btn-facebook center-block" href="<? echo htmlspecialchars($loginUrl) ?>">
-						<span class="fa fa-facebook"></span> Iniciar sesión con Facebook
-					</a>
-	
-			<?php endif ?>		
-			</div>	
-		</div>
-	</div>
-</div>
+</div>			
+		
 
 <!-- Modal - When a user wants to register with Facebook but an account is already there with the same email -->
 <!--div class="modal fade" id="modal_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">	
@@ -441,31 +416,7 @@
   </div>	
 </div>
 </div>
-
-<div class="panel-group" id="accordion">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" href="#collapse1">
-					* Que hacemos con Facebook?
-				</a>
-			</h4>
-		</div>
-		<div id="collapse1" class="panel-collapse in" style="height: auto;">
-			<div class="panel-body">
-				<p class="text-muted" style=" font-size: 14px; line-height: 1;">
-					Solo utilisamos Facebook para facilitarte la vida, nunca para utilisar tus datos personales.<br>
-					Te permite crear tu cuenta mas rapido porque recuperamos (SOLO) tu nombre, apellido, email y foto de perfil<br>
-					Si tu cuenta org@migos esta liada con tu cuenta Facebook, solo necesitas estar conectado al Face para entrar a nuestra plataforma.<br>
-					Necesitas ingresar tambien una contraseña para tu cuenta org@migos para que puedas tambien entrar a la plataforma sin tu cuenta Facebook.
-				</p>
-			</div>
-		</div>
-	</div>
 </div>
-	
-
-
 
 <?php include 'footer.php'; ?>
 </body>

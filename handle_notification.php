@@ -44,7 +44,7 @@ elseif (isset($_GET['logout'])){
 	$err_show = true;
 	$err_msg =	"	<strong>Tu cuenta no esta activada todavía</strong>
 				<br> Checka bien to Inbox y click en el enlace para activar tu cuenta. 
-				<br> Si no encontrate el correo de activación que te enviamos, verifica en tus Spams o puedes genrar un nuevo correo de activacíon.
+				<br> Si no encontraste el correo de activación que te enviamos, verifica en tus Spams o puedes genrar un nuevo correo de activacíon.
 			";
  }
  
@@ -88,7 +88,7 @@ elseif (isset($_GET['logout'])){
  }
  elseif (isset($_GET['emailnotfound'])){
 	$err_show = true;
-	$err_msg ="	<strong>Lo siento pero no encontrampos una cuenta registrada con este email <strong> " . $_GET['email'] . "</strong><br>Inténtalo con otro.    </div>";			; 
+	$err_msg ="	<strong>Lo siento pero no encontramos una cuenta registrada con este email <strong> " . $_GET['email'] . "</strong><br>Inténtalo con otro.    </div>";			; 
  }
  
  

@@ -37,7 +37,7 @@
 	<div class="container eco-container" id="section3" style="padding-top : 100px;" >
 		<form data-toggle="validator" role="form" method="POST" id="gmap_form"> 	
 		</form>
-		<h1 class="text-center">¡ Encontra el eco-lugar mas cerca de tu zona !
+		<h1 class="text-center">¡ Encuentra el eco-lugar mas cerca de tu zona !
 			<small class="subtitle">Esperamos abrir muchos más muy pronto</small>
 		</h1>
        
@@ -60,7 +60,7 @@
 	<div id="4href1"></div>
     <div class="container eco-container" id="section1" >
 	
-	   <h1 class="text-center">¿ Comó fonctiona ?<small class="subtitle">Es súper simple !</small></h1>
+	   <h1 class="text-center">¿ Comó funciona ?<small class="subtitle">Es súper simple !</small></h1>
        
 	   <img src="/img/circle1.png" alt="Circle Image" class="img-circle center-block eco-circleimg">
 
@@ -115,7 +115,7 @@
 				<p>Favorecer los cultivos orgámigos</p>
 			</li>
 			<li class="list-group-item">
-				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Inovante</h4>
+				<h4 class="list-group-item-heading"><span class="glyphicon glyphicon glyphicon-star" aria-hidden="true"></span>     Inovador</h4>
 				<p>Proponer un nuevo modo de consumo a la vez mas consciente pero tambíen moderno y eficiente </p>
 			</li>
 			<li class="list-group-item">
