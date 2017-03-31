@@ -98,7 +98,7 @@
 		  exit;
 		}
 	
-		$resp = checkUser($user['id'],$user['email'],$db);
+		$resp = $reg_user->($user['id'],$user['email']);
 
 		if ($resp['ismember']==true && $resp['isFB']==true ){
 			// user is currently connected with Facebook

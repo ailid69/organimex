@@ -1,6 +1,8 @@
 <?php
 
 require_once 'dbconfig.php';
+require_once 'dbconfig.php';
+
 
 class USER{ 
 
@@ -23,52 +25,56 @@ class USER{
 	  return $stmt;
 	 }
 	 
-	 public function register($email,$fname,$lname,$upass,$code,$fbid)
-	 {
-	 try
-	 {       
-		$password = password_hash($upass,PASSWORD_DEFAULT);
-		$stmt = $this->conn->prepare("INSERT INTO users(email,firstName,lastName,password,tokenCode,fbid) 
-													VALUES(:user_mail, :user_fname, :user_lname, :user_pass,:active_code,:user_fbid)");
-		$stmt->bindparam(":user_mail",$email);
-		$stmt->bindparam(":user_fname",$fname);
-		$stmt->bindparam(":user_lname",$lname);
-		$stmt->bindparam(":user_pass",$password);
-		$stmt->bindparam(":active_code",$code);
-		$stmt->bindparam(":user_fbid",$fbid);
-		$stmt->execute(); 
-		return $stmt;
-	 }
-	  catch(PDOException $ex)
-	  {
-	   echo $ex->getMessage();
-	  }
-	 }
+	public function register($email,$fname,$lname,$upass,$code,$fbid){
+	
+		try{       
+			$password = password_hash($upass,PASSWORD_DEFAULT);
+			$stmt = $this->conn->prepare("INSERT INTO users(email,firstName,lastName,password,tokenCode,fbid) 
+														VALUES(:user_mail, :user_fname, :user_lname, :user_pass,:active_code,:user_fbid)");
+			$stmt->bindparam(":user_mail",$email);
+			$stmt->bindparam(":user_fname",$fname);
+			$stmt->bindparam(":user_lname",$lname);
+			$stmt->bindparam(":user_pass",$password);
+			$stmt->bindparam(":active_code",$code);
+			$stmt->bindparam(":user_fbid",$fbid);
+			$stmt->execute(); 
+		
+			return $stmt;
+			
+			}catch(PDOException $ex){
+				$err =  $ex->getMessage();
+				$this->redirect("login.php?dberror&error=" .$err);
+			}
+	}
 	 public function loginFB($email,$fbid){
+
 		 try
-		  {
+		  {	
 		   $stmt = $this->conn->prepare("SELECT UID, isVerified FROM users WHERE email=:email_id AND fbid=:fb_id");
 		   $stmt->execute(array(":email_id"=>$email,"fb_id"=>$fbid));
-		   $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() == 1){
+				
 				if($userRow['isVerified']=="Y"){	 
 					$_SESSION['userSession'] = $userRow['UID'];
+					$_SESSION['userName'] = $userRow['firstName'] . ' ' . $userRow['lastName'] ;
+					$this->redirect("home.php");
 					return true;
 				}
 				else{
-					header("Location: login.php?error=inactive");
+					$this->redirect("index.php?inactive");
 					exit;
 				}
 			}			
 			else{
-				header("Location: login.php?error=wronguser");
+				$this->redirect("index.php?wronguser");
 				exit;
 			}  
 		}
-		catch(PDOException $ex)
-	  {
-	   echo $ex->getMessage();
-	  }
+		catch(PDOException $ex){
+			$err =  $ex->getMessage();
+			$this->redirect("login.php?dberror&error=" .$err);
+		}
 	 }
 	 public function login($email,$upass){
 		try{
@@ -77,10 +83,12 @@ class USER{
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			
 			if($stmt->rowCount() == 1) {
+				print_r($userRow);die;
 				if($userRow['isVerified']=="Y"){
 					if(password_verify($upass, $userRow['password'])){
 						$_SESSION['userSession'] = $userRow['UID'];
 						$_SESSION['userName'] = $userRow['firstName'] . ' ' . $userRow['lastName'] ;
+						$this->redirect("home");
 						return true;
 					}
 					else{
@@ -99,18 +107,30 @@ class USER{
 			}  
 		}
 		catch(PDOException $ex){
-			echo 'error?';
-			echo $ex->getMessage();
+		   $err =  $ex->getMessage();
+		   $this->redirect("login.php?dberror&error=" .$err);
 		}
 	}
 	 
+	 public function linkFB($email,$fbid){
+		try
+		{ 
+			$stmt = $this->conn->prepare("UPDATE users SET fbid=:user_fbid WHERE email=:user_email");
+			$stmt->bindparam(":user_email",$email);
+			$stmt->bindparam(":user_fbid",$fbid);
+			$stmt->execute(); 
+			return $stmt;
+		}
+		catch(PDOException $ex){
+		   $err =  $ex->getMessage();
+		   $this->redirect("login.php?dberror&error=" .$err);
+		 }
+	 }
 	 
-	 public function is_logged_in()
-	 {
-	  if(isset($_SESSION['userSession']))
-	  {
-	   return true;
-	  }
+	 public function is_logged_in(){
+		if(isset($_SESSION['userSession'])){
+			return true;
+		}
 	 }
 	 
 	public function redirect($url){
@@ -122,7 +142,43 @@ class USER{
 		session_destroy();
 	  //$_SESSION['userSession'] = false;
 	}
-	 
+	public function checkUser($id,$email) {
+		$query = "SELECT UID FROM users WHERE fbid= " . $id;
+		//echo $query;
+		
+		try{
+			$stmt = $this->conn->prepare($query); 
+			$stmt->execute(); 
+			$result = $stmt->rowCount();
+			
+	//echo $result;
+			if ($result==0) { // User exists already in the DB with a FBID	
+				$query = "SELECT UID FROM users WHERE email=" . $this->conn->quote($email);
+			//	echo $query;
+				$stmt = $this->conn->prepare($query); 
+				$stmt->execute(); 
+				$result = $stmt->rowCount();
+			//	echo $result;
+				if ($result==0) { // 		
+					return (array("fbid"=>$id,"ismember"=>false, "isFB"=>false, "error"=>false, "info"=> "User " & $id & " is not registered as a member, can't find his email or Facebook id/"));
+					exit;
+				} else {   // User exists, with this email but account not linked with Facebook
+					return (array("fbid"=>$id,"ismember"=>true, "isFB"=>false, "error"=>false, "info"=> "User " & $id & " is not registered as a member with account linked to facebook BUT has an account with same email, ask user to link with Facebook."));
+					exit;
+				}
+						
+			}
+			else {   // Is already a member with FB account linked	
+				return (array("fbid"=>$id,"ismember"=>true, "isFB"=>true, "error"=>false,"info"=> "User " & $id & " is already registered as a member with account linked to Facebook"));
+				exit;
+			}
+		}
+		catch(PDOException $ex){ 
+		
+			$err =  $ex->getMessage();
+			$this->redirect("login.php?dberror&error=" .$err);
+		} 
+	}
 	public function send_mail($email,$message,$subject){      
 		require_once('PHPMailer/PHPMailerAutoload.php');
 		$mail = new PHPMailer();

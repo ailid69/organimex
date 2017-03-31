@@ -91,6 +91,15 @@ elseif (isset($_GET['logout'])){
 	$err_msg ="	<strong>Lo siento pero no encontramos una cuenta registrada con este email <strong> " . $_GET['email'] . "</strong><br>Inténtalo con otro.    </div>";			; 
  }
  
+  elseif (isset($_GET['fberror'])){
+	$err_show = true;
+	$err_msg ="	<strong>Hubó un problema con la conección con Facebook<strong><br>Detalles :  " . $_GET['error'] ;
+ }
+   elseif (isset($_GET['dberror'])){
+	$err_show = true;
+	$err_msg ="	<strong>Hubó un problema con el base de datos<strong><br>Detalles :  " . $_GET['error'] ;
+ }
+
  
 if ($info_show == true){
 	echo '	<div  class="alert alert-info alert-fixed"  id="myalertinfo" >

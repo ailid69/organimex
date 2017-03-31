@@ -41,7 +41,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 	$_SESSION['discard_after'] = $now + SESSION_TIMEOUT;
 
 	/* $db is the object to access database */
-	$db;
+	/*$db;
     $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); 
     try { 
 		$db = new PDO('mysql:host='.HOST.';dbname='.DBNAME.';charset=utf8', USERNAME, PASSWORD, $options); 
@@ -52,39 +52,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 	
 	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
-	
-function checkUser($id,$email, $db) {
-		$query = "SELECT UID FROM users WHERE fbid= " . $id;
-		//echo $query;
-		
-		try{
-			$stmt = $db->prepare($query); 
-			$stmt->execute(); 
-			$result = $stmt->rowCount();
-			
-	//echo $result;
-			if ($result==0) { // User exists already in the DB with a FBID	
-				$query = "SELECT UID FROM users WHERE email=" . $db->quote($email);
-			//	echo $query;
-				$stmt = $db->prepare($query); 
-				$stmt->execute(); 
-				$result = $stmt->rowCount();
-			//	echo $result;
-				if ($result==0) { // 		
-					return (array("fbid"=>$id,"ismember"=>false, "isFB"=>false, "error"=>false, "info"=> "User " & $id & " is not registered as a member, can't find his email or Facebook id/"));
-					exit;
-				} else {   // User exists, with this email but account not linked with Facebook
-					return (array("fbid"=>$id,"ismember"=>true, "isFB"=>false, "error"=>false, "info"=> "User " & $id & " is not registered as a member with account linked to facebook BUT has an account with same email, ask user to link with Facebook."));
-					exit;
-				}
-						
-			}
-			else {   // Is already a member with FB account linked	
-				return (array("fbid"=>$id,"ismember"=>true, "isFB"=>true, "error"=>false,"info"=> "User " & $id & " is already registered as a member with account linked to Facebook"));
-				exit;
-			}
-		}
-		catch(PDOException $ex){ die("Failed to run query: " . $ex->getMessage()); } 
-	}
+	*/
+
 	
 ?>
