@@ -140,7 +140,7 @@ if (isset($_SESSION['fb_access_token'])){
 					<?php else: ?>     <!-- Before login --> 
 						<div class="eco-row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
-								<a class="btn btn-block btn-social btn-facebook center-block" href="<? echo htmlspecialchars($loginUrl) ?>">
+								<a class="btn btn-block btn-social btn-facebook center-block" href="<?php echo htmlspecialchars($loginUrl) ?>">
 									<span class="fa fa-facebook"></span> Iniciar sesión con Facebook
 								</a>
 							</div>
