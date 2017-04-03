@@ -50,7 +50,7 @@ class USER{
 
 		 try
 		  {	
-		   $stmt = $this->conn->prepare("SELECT UID, isVerified FROM users WHERE email=:email_id AND fbid=:fb_id");
+		   $stmt = $this->conn->prepare("SELECT UID, fbid,isVerified,firstName,lastName FROM users WHERE email=:email_id AND fbid=:fb_id");
 		   $stmt->execute(array(":email_id"=>$email,"fb_id"=>$fbid));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($stmt->rowCount() == 1){
@@ -58,11 +58,12 @@ class USER{
 				if($userRow['isVerified']=="Y"){	 
 					$_SESSION['userSession'] = $userRow['UID'];
 					$_SESSION['userName'] = $userRow['firstName'] . ' ' . $userRow['lastName'] ;
+					$_SESSION['fbid'] = $userRow['fbid'];
 					$this->redirect("home.php");
 					return true;
 				}
 				else{
-					$this->redirect("index.php?inactive");
+					$this->redirect("index.php?inactive&email=" . $email);
 					exit;
 				}
 			}			
@@ -78,16 +79,20 @@ class USER{
 	 }
 	 public function login($email,$upass){
 		try{
-			$stmt = $this->conn->prepare("SELECT UID, firstName, lastName, password, isVerified FROM users WHERE email=:email_id");
+			$stmt = $this->conn->prepare("SELECT UID, fbid, firstName, lastName, password, isVerified FROM users WHERE email=:email_id");
 			$stmt->execute(array(":email_id"=>$email));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 			
 			if($stmt->rowCount() == 1) {
-				print_r($userRow);die;
 				if($userRow['isVerified']=="Y"){
 					if(password_verify($upass, $userRow['password'])){
 						$_SESSION['userSession'] = $userRow['UID'];
 						$_SESSION['userName'] = $userRow['firstName'] . ' ' . $userRow['lastName'] ;
+						
+						if($userRow['fbid']!=0){
+							$_SESSION['fbid'] = $userRow['fbid'] ;
+						}
+						
 						$this->redirect("home");
 						return true;
 					}
@@ -97,7 +102,7 @@ class USER{
 					}
 				}
 				else{
-					$this->redirect("login.php?inactive");
+					$this->redirect("login.php?inactive&email=" . $email);
 					exit;
 				} 
 			}
@@ -144,21 +149,18 @@ class USER{
 	}
 	public function checkUser($id,$email) {
 		$query = "SELECT UID FROM users WHERE fbid= " . $id;
-		//echo $query;
 		
 		try{
 			$stmt = $this->conn->prepare($query); 
 			$stmt->execute(); 
 			$result = $stmt->rowCount();
 			
-	//echo $result;
 			if ($result==0) { // User exists already in the DB with a FBID	
 				$query = "SELECT UID FROM users WHERE email=" . $this->conn->quote($email);
-			//	echo $query;
+
 				$stmt = $this->conn->prepare($query); 
 				$stmt->execute(); 
 				$result = $stmt->rowCount();
-			//	echo $result;
 				if ($result==0) { // 		
 					return (array("fbid"=>$id,"ismember"=>false, "isFB"=>false, "error"=>false, "info"=> "User " & $id & " is not registered as a member, can't find his email or Facebook id/"));
 					exit;
@@ -178,6 +180,22 @@ class USER{
 			$err =  $ex->getMessage();
 			$this->redirect("login.php?dberror&error=" .$err);
 		} 
+	}
+	public function send_activation_email ($email,$id,$code){
+		$key = base64_encode($id);
+		$id = $key;
+		$message = "	Hola $ufname,
+						<br /><br />
+						Bienvenido a Org@migos!<br/>
+						Para completar tu inscripción, por favor, solo dale un click en el link.<br/>
+						<br /><br />
+						<a href='" . WEBSITE . "/verify.php?id="  . $id . "&code=" . $code . "'>Click HERE to Activate :)</a>
+						<br /><br />
+						Gracias,
+					";
+		$subject = "Confirma registración a Org@migos";	  
+		$this->send_mail($email,$message,$subject); 
+	
 	}
 	public function send_mail($email,$message,$subject){      
 		require_once('PHPMailer/PHPMailerAutoload.php');

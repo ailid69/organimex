@@ -17,7 +17,7 @@ if(isset($_POST['btn-submit']))
  $row = $stmt->fetch(PDO::FETCH_ASSOC); 
  if($stmt->rowCount() == 1)
  {
-  $id = base64_encode($row['userID']);
+  $id = base64_encode($row['UID']);
   $code = md5(uniqid(rand()));
   
   $stmt = $user->runQuery("UPDATE users SET tokenCode=:token WHERE email=:email");
@@ -76,23 +76,28 @@ if(isset($_POST['btn-submit']))
 <?php include 'handle_notification.php'; ?>
 <?php include 'header.php'; ?>
 
-	<div class="main eco-main blue-1-bg" id="registerForm">
-		<div class="container eco-container" style="padding-top:100px; padding-bottom:50px;">
-		    <div class="row">
-			<div class="col-sm-10 col-sm-offset-1">
-				<h1 class="text-center">
-					¿ Olvidaste tu contraseña ?<br>
-					<small class="subtitle white">
-						No hay problema, lo arreglamos
-					</small>
-				</h1>	
-			</div>
-		</div>		
-			
-		<div class="eco-panel rounded-panel large-panel white-bg">
+	<div class="main eco-main" id="registerForm" style="background-image:url('img/bg-forgotpass.jpg');
+		background-color : transparent;
+    width:100%;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center center;">
+		<div class="container eco-container" id="section1" style="padding-top:100px; padding-bottom:50px; background-color : transparent;">
+			<div class = "eco-panel rounded-panel xl-panel white-bg ">
+				<div class="container-fluid">
+					
+						<h1 class="text-center">
+							¿ Olvidaste tu contraseña ?<br>
+							<small class="subtitle white">
+								No hay problema, lo arreglamos
+							</small>
+						</h1>	
+				 
+				</div>		
+
 			<form data-toggle="validator" role="form" method="POST" id="forgetpassform"> 	
 				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="form-group has-feedback">
 							<label for="inputUserEmail">Email</label>
 							<div class="input-group">
@@ -112,15 +117,17 @@ if(isset($_POST['btn-submit']))
 					</div>
 				</div>	
 				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
-						<button class="btn btn-danger btn-primary" type="submit" name="btn-submit">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						<button class="btn btn-block btn-primary btn-fill" type="submit" name="btn-submit">
 							Generar una nueva contraseña
 						</button>
 					</div>
 				</div>
 			</form>
+			</div>
 		</div>
 	</div>
+<?php include 'footer.php'; ?>	
 </body>
 	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>

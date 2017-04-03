@@ -8,48 +8,36 @@ if(empty($_GET['id']) && empty($_GET['code'])){
 
 if(isset($_GET['id']) && isset($_GET['code']))
 {
- $id = base64_decode($_GET['id']);
- $code = $_GET['code'];
- 
- $stmt = $user->runQuery("SELECT * FROM users WHERE UID=:uid AND tokenCode=:token");
- $stmt->execute(array(":uid"=>$id,":token"=>$code));
- $rows = $stmt->fetch(PDO::FETCH_ASSOC);
- 
- if($stmt->rowCount() == 1)
- {
-  if(isset($_POST['btn-reset-pass']))
-  {
-   $pass = $_POST['pass'];
-   $cpass = $_POST['confirm-pass'];
-   
-   if($cpass!==$pass)
-   {
-    $msg = "<div class='alert alert-block'>
-      <button class='close' data-dismiss='alert'>&times;</button>
-      <strong>Sorry!</strong>  Password Doesn't match. 
-      </div>";
-   }
-   else
-   {
-    $stmt = $user->runQuery("UPDATE tbl_users SET userPass=:upass WHERE userID=:uid");
-    $stmt->execute(array(":upass"=>$cpass,":uid"=>$rows['userID']));
-    
-    $msg = "<div class='alert alert-success'>
-      <button class='close' data-dismiss='alert'>&times;</button>
-      Password Changed.
-      </div>";
-    header("refresh:5;index.php");
-   }
-  } 
- }
- else
- {
-  exit;
- }
- 
- 
-}
+	$id = base64_decode($_GET['id']);
+	$code = $_GET['code'];
+	try{
+		$stmt = $user->runQuery("SELECT * FROM users WHERE UID=:uid AND tokenCode=:token");
+		$stmt->execute(array(":uid"=>$id,":token"=>$code));
+		$rows = $stmt->fetch(PDO::FETCH_ASSOC);
 
+		if($stmt->rowCount() == 1){
+			if(isset($_POST['btn-reset-pass'])){
+				$pass = $_POST['pass'];
+				$cpass = $_POST['confirm-pass'];
+				if($cpass!==$pass){
+					$user->redirect('resetpass.php?passnomatch');
+				}
+				else{
+					$cpass =  password_hash($pass,PASSWORD_DEFAULT);
+					$stmt = $user->runQuery("UPDATE users SET password=:upass WHERE UID=:uid");
+					$stmt->execute(array(":upass"=>$cpass,":uid"=>$rows['UID']));
+					$user->redirect('login.php?passreset');
+				} 
+			}
+			else{
+				//exit;
+			}
+		}
+	}catch(PDOException $ex){
+		$err =  $ex->getMessage();
+		$user->redirect("login.php?dberror&error=" .$err);
+	} 
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,67 +71,76 @@ if(isset($_GET['id']) && isset($_GET['code']))
 <?php include 'header.php'; ?>
 
 
-	<div class="main eco-main blue-2-bg" id="registerForm">
-		<div class="container eco-container" style="padding-top:100px; padding-bottom:50px;">
-		    <div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
-					<h1 class="text-center">
-						 <strong>¡ Hola !</strong>  <?php echo $rows['firstName'] ?> 
+	<div class="main eco-main" id="registerForm" style="background-image:url('img/bg-resetpass.jpg');
+		background-color : transparent;
+    width:100%;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center center;">
+		<div class="container eco-container" id="section1" style="padding-top:100px; padding-bottom:50px; background-color : transparent;">
+			<div class = "eco-panel rounded-panel large-panel white-bg ">
+				<div class="container-fluid">
+					<h1 class="text-center ">
+						¡ Hola </strong>  <?php echo $rows['firstName'] ?> ! 
 						<small class="subtitle white">
 							Aqui vas a poder reinicializar tu contraseña.<br>
 						</small>
 					</h1>	
-				</div>
-			</div>		
-			
-			<div class="eco-panel rounded-panel large-panel white-bg">
-				<form data-toggle="validator" role="form" method="POST" id="forgetpassform"> 	
-					<div class="row">
-						<div class="col-sm-8 col-sm-offset-2">
-							<div class="form-group has-feedback">
-							<label for="inputUserPassword">Entra tu nueva contraseña</label>
-								<div class="input-group">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-									<input 
-									id="inputUserPassword" 
-									type="password" 
-									class="form-control" 
-									data-minlength="6" 
-									name="upass" 
-									placeholder="Nueva contraseña" 
-									data-error="Este campo no puede ser vacío"
-									data-minlength-error="Le falta caracteros"
-									required >
-									<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+					<form data-toggle="validator" role="form" method="POST" id="forgetpassform"> 	
+						<div class="eco-row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group has-feedback">			
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input 
+										id="inputUserPassword" 
+										type="password" 
+										class="form-control" 
+										data-minlength="6" 
+										name="pass" 
+										placeholder="Nueva contraseña" 
+										data-error="Este campo no puede ser vacío"
+										data-minlength-error="Le falta caracteros"
+										required >
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+									</div>
+									<div class="help-block with-errors">Son 6 caracters minimo</div>
+								</div>				  
+							</div>
+						</div>
+						
+						<div class="eco-row">				
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+										<input 
+											type="password" 
+											class="form-control" 
+											id="inputUserPasswordCheck" 
+											name = "confirm-pass"
+											placeholder="Confirma la contraseña"
+											required
+											data-error="Este campo no puede ser vacío"
+											data-match="#inputUserPassword" 
+											data-match-error="La contraseña es diferente, checalo bien" 				
+										>
+										<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+									</div>				
+									<div class="help-block with-errors"></div>
 								</div>
-								<div class="help-block with-errors">Son 6 caracters minimo</div>
-							</div>				  
+							</div>
 						</div>
-					</div>
-					
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
-						<div class="form-group has-feedback">
-							<label for="inputUserPasswordCheck">Repetir la contraseña</label>
-							<div class="input-group">
-								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-								<input 
-									type="password" 
-									class="form-control" 
-									id="inputUserPasswordCheck" 
-									placeholder="Confirma la contraseña"
-									required
-									data-error="Este campo no puede ser vacío"
-									data-match="#inputUserPassword" 
-									data-match-error="La contraseña es diferente, checalo bien" 				
-								>
-								<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-							</div>				
-							<div class="help-block with-errors"></div>
+						<div class="eco-row">
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<button class="btn btn-block btn-primary btn-fill" type="submit" name="btn-reset-pass">
+									Reinicializar tu contraseña
+								</button>
+							</div>
 						</div>
-					</div>
-				</div>
-			</div>	
+					</form>
+				</div>	
+			</div>
 		</div>
 	</div>
 </body>					
@@ -154,22 +151,3 @@ if(isset($_GET['id']) && isset($_GET['code']))
 	<script src="assets/js/validator.min.js" type="text/javascript"></script>
 </html>
 
-
-
-
-
-
-   
-       <form class="form-signin" method="post">
-       <h3 class="form-signin-heading">Reinicializar contraseña</h3><hr />
-       <input type="password" class="input-block-level" placeholder="New Password" name="pass" required />
-       <input type="password" class="input-block-level" placeholder="Confirm New Password" name="confirm-pass" required />
-      <hr />
-        <button class="btn btn-large btn-primary" type="submit" name="btn-reset-pass">Reset Your Password</button>
-        
-      </form>
-
-    </div> <!-- /container -->
-
-  </body>
-</html>

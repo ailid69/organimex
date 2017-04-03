@@ -1,20 +1,14 @@
 <?php 
-	/*-------------------------------------------------------------------------------------------------
-		Login with Facebook 
-		Uses Facebook SDK for JavaScript (see <scripts>)
-	-------------------------------------------------------------------------------------------------*/	
 	require_once 'config.php';
 	require_once __DIR__ . '/vendor/autoload.php';
 	require_once 'class.user.php';
 
-	//var_dump($_POST);
-	
+	// for Facebook callback
 	$_SESSION['from_page']='signup.php';
 
 	$reg_user = new USER();
 	// if the user is already logged-in, redirect him to his home member page 
-	if($reg_user->is_logged_in()!="")
-	{
+	if($reg_user->is_logged_in()!=""){
 		$reg_user->redirect('home.php');
 	}
 	
@@ -22,7 +16,7 @@
 		'app_id' => APP_ID,
 		'app_secret' => APP_SECRET,
 		'default_graph_version' => 'v2.8',
-		 'persistent_data_handler'=>'session'
+		'persistent_data_handler'=>'session'
 	]);
 
 	$helper = $fb->getRedirectLoginHelper();
@@ -51,23 +45,8 @@
 		else{
 			if($reg_user->register($uemail,$ufname,$ulname,$upass,$code,$ufbid)){   
 				$id = $reg_user->lastID();  
-				$key = base64_encode($id);
-				$id = $key;
-				$message = "	Hola $ufname,
-								<br /><br />
-								Bienvenido a Org@migos!<br/>
-								Para completar tu inscripción, por favor, solo dale un click en el link.<br/>
-								<br /><br />
-								<a href='" . WEBSITE . "/verify.php?id="  . $id . "&code=" . $code . "'>Click HERE to Activate :)</a>
-								<br /><br />
-								Gracias,
-							";
-				$subject = "Confirma registracción a Org@migos";
-				  
-				$reg_user->send_mail($uemail,$message,$subject); 
+				$reg_user->send_activation_email ($uemail,$id,$code);
 
-
-				
 				// redirect user to index with notification for success
 				$reg_user->redirect('index.php?usercreated');
 			}
@@ -98,7 +77,7 @@
 		  exit;
 		}
 	
-		$resp = $reg_user->($user['id'],$user['email']);
+		$resp = $reg_user->checkUser($user['id'],$user['email']);
 
 		if ($resp['ismember']==true && $resp['isFB']==true ){
 			// user is currently connected with Facebook
@@ -143,7 +122,9 @@
     <link href="bootstrap3/css/font-awesome.css" rel="stylesheet" />
     
 	<link href="assets/css/gsdk.css" rel="stylesheet" />   
-    <link href="assets/css/demo.css" rel="stylesheet" /> 
+    <link href="assets/css/demo.css" rel="stylesheet" />
+
+<link href="css/login.css" rel="stylesheet" />	
 	<link href="css/orgamigos.css" rel="stylesheet" />
 	<link href="css/bootstrap-social.css" rel="stylesheet" />
     <!--     Font Awesome     -->
@@ -160,30 +141,61 @@
 	<?php include 'header.php'; ?>
 
 
-<div class="eco-main eco-color" style="eco-color">
-	<div class="container eco-container" id="section3" style="padding-top : 100px;" >
-		<div class="row">
-			<div class="col-sm-10 col-sm-offset-1">
-				<h1 class="text-center">
-					Abrir una cuenta<br>
-					<small class="subtitle">
-						La inscripcion es gratuita y sin compromiso!<br>Puedes decidir qué y cuándo compras según tus gustos.
-					</small>
-				</h1>	
-			</div>
-		</div>				
+<div class="main eco-main" style=" background-image: url('img/bg-signup.jpg'); padding-top:100px; 
+	background-color : transparent;
+    width:100%;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center center;">
 
-		<div class="eco-panel rounded-panel large-panel white-bg">
+		<div class="tim-title white">
+			<h1 class="text-center">
+				Abrir una cuenta<br>
+				<small class="subtitle white">La inscripcion es gratuita y sin compromiso!<br>Puedes decidir qué y cuándo compras según tus gustos.</small>
+			</h1>
+		</div> 
+	<!-- div class="container eco-container" id="section3" style="padding-top : 100px;" -->
+			<div class="container eco-container">
+
+		<div class = "eco-panel rounded-panel large-panel white-bg ">
+				<div class="container-fluid">
+				<?php if (isset($_SESSION['fb_access_token'])): ?>
+					<h4 class="text-center">Hola <?php echo $user['name'] ?></h4>
+					<div class="eco-row">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<img src="https://graph.facebook.com/<?php echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
+						</div>
+					</div>
+					<div class="eco-row">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<a id="btn-fb" name="btn-fb" type="submit" class="btn btn-block btn-social btn-facebook center-block" href="logout.php?">
+								<span class="fa fa-facebook"></span> Cerrar la conección con Facebook
+							</a>
+						</div>
+					</div>	
+				<?php else : ?>
+					<div class="eco-row">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<a class="btn btn-block btn-social btn-facebook center-block" href="<?php echo htmlspecialchars($loginUrl) ?>">
+								<span class="fa fa-facebook"></span> Iniciar sesión con Facebook
+							</a>
+						</div>
+					</div>
+				<?php endif ?>		
+				
+			<div class="login-or">
+				<hr class="hr-or">
+				<span class="span-or">sino</span>
+			 </div>	
 			<form data-toggle="validator" role="form" method="POST" id="registerForm"> 	
 				<input 
 					type="hidden" class="form-control" 
 					id="facebookid" name="ufbid" 
 					<?php if (isset($_SESSION['fb_access_token'])) {echo 'value="' . $user['id'] . '"' ;} ?> 
 				>
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+				
 						<div class="form-group has-feedback">
-							<label for="inputUserEmail">Email</label>
+							
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 								<input
@@ -201,12 +213,9 @@
 							</div>
 							  <div class="help-block with-errors"></div>
 						</div>
-					</div>
-				</div>
-				<div class="row" >
-					<div class="col-sm-8 col-sm-offset-2">
+
 						<div class="form-group has-feedback">
-							<label for="inputUserEmailCheck">Repetir el email</label>
+							
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 								<input 
@@ -223,13 +232,11 @@
 							</div>
 						<div class="help-block with-errors"></div>
 						</div>
-					</div>
-				</div>
+
 				
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+
 						<div class="form-group has-feedback">
-						<label for="inputUserPassword">Contraseña</label>
+					
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 								<input 
@@ -246,13 +253,10 @@
 							</div>
 							<div class="help-block with-errors">Son 6 caractéres mínimo</div>
 						</div>				  
-					</div>
-				</div>
+
 					
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+				
 						<div class="form-group has-feedback">
-							<label for="inputUserPasswordCheck">Repetir la contraseña</label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 								<input 
@@ -269,13 +273,10 @@
 							</div>				
 							<div class="help-block with-errors"></div>
 						</div>
-					</div>
-				</div>
+		
 				<h4>Háblanos un poco de ti</h4>
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">
+
 						<div class="form-group has-feedback">
-							<label for="inputUserFirstName">Nombre(s)</label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 								<input 
@@ -293,12 +294,9 @@
 							
 							<div class="help-block with-errors"></div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-8 col-sm-offset-2">	
+
+	
 						<div class="form-group has-feedback">				
-							<label for="inputUserLastName">Appelido(s)</label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 								<input 
@@ -315,39 +313,11 @@
 							</div>
 							<div class="help-block with-errors"></div>
 						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4 col-sm-offset-2">
-
-						<button type="submit" class="btn btn btn-primary" id="btn-signup" name="btn-signup">
+						<button type="submit" class="btn btn-blockg btn-primary " id="btn-signup" name="btn-signup">
 						Enviar
 						</button>
-					</div>
 
-					<div class="col-sm-4 col-sm-offset-2">
-						<button type="submit" class="btn btn btn-primary btn-simple" id="btn_login" name="btn_login" data-disable>
-						Conectarse
-						</button>
-					</div>
-				</div>
-				<h4>Registrarse con Facebook (o no*)</h4>
-				<?php if (isset($_SESSION['fb_access_token'])): ?>
-					<h4 class="text-center">Hola <?php echo $user['name'] ?></h4>
-					<div class="eco-row">
-						<img src="https://graph.facebook.com/<?php echo $user['id'] ?>./picture?width=120" alt="Circle Image" class="img-circle img-responsive center-block" width="120" height="120">			
-					</div>
-					<a class="btn btn-block btn-social btn-facebook center-block" href="logout.php">
-						<span class="fa fa-facebook"></span> Cerrar la sesíon con Facebook
-					</a>	
-								
-				<?php else : ?>
-				
-					<a class="btn btn-block btn-social btn-facebook center-block" href="<?php echo htmlspecialchars($loginUrl) ?>">
-						<span class="fa fa-facebook"></span> Iniciar sesión con Facebook
-					</a>
-		
-				<?php endif ?>		
+	
 			</form>	
 			
 <div class="panel-group" id="accordion">
@@ -371,9 +341,10 @@
 		</div>
 	</div>
 </div>
-</div>			
 		
-
+</div>		
+</div>
+</div>	
 <!-- Modal - When a user wants to register with Facebook but an account is already there with the same email -->
 <!--div class="modal fade" id="modal_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">	
   <div class="modal-dialog" role="document">
@@ -416,9 +387,10 @@
   </div>	
 </div>
 </div>
-</div>
 
+</div>
 <?php include 'footer.php'; ?>
+
 </body>
 
     <!--script src="jquery/jquery-1.10.2.js" type="text/javascript"></script!-->

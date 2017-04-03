@@ -33,7 +33,7 @@ try {
 } catch(Facebook\Exceptions\FacebookSDKException $e) {
   // When validation fails or other local issues
   $error =  'Facebook SDK returned an error: ' . $e->getMessage();
-  header ('Location: ' . $myredirection . '/fberror?error="' . $error . '"' );
+  header ('Location: ' . $myredirection . '&fberror?error="' . $error . '"' );
   exit;
 }
 
@@ -46,13 +46,13 @@ if (! isset($accessToken)) {
     echo "Error Description: " . $helper->getErrorDescription() . "\n";*/
 	
 	$error =  'Facebook no dío el permiso para conectarte<br>Error: ' . $helper->getError() . '<br>Error Code: ' . $helper->getErrorCode() . '<br>Error Reason: ' . $helper->getErrorReason() .  '<br>Error Description: ' . $helper->getErrorDescription();
-	header ('Location: ' . $myredirection . '/fberror?error="' . $error. '"' );
+	header ('Location: ' . $myredirection . '&fberror?error="' . $error. '"' );
 	
   } else {
     //header('HTTP/1.0 400 Bad Request');
     //echo 'Bad request';
 	$error =  'Hubó un problema con la conección a Facebook';
-	header ('Location: ' . $myredirection . '/fberror?error="' . $error . '"' );
+	header ('Location: ' . $myredirection . '&fberror?error="' . $error . '"' );
   }
   exit;
 }
@@ -83,7 +83,7 @@ if (! $accessToken->isLongLived()) {
     //echo "<p>Error getting long-lived access token: " . $helper->getMessage() . "</p>\n\n";
 	
 	$error =  'Error getting long-lived access token: ' . $helper->getMessage();
-	header ('Location: ' . $myredirection . '/fberror?error="' . $error . '"' );
+	header ('Location: ' . $myredirection . '&fberror?error="' . $error . '"' );
 	
     exit;
   }

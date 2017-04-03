@@ -13,6 +13,13 @@ if (isset($_GET['usercreated'])){
 								<br>Por favor dale click al enlace de confimación en el correo para terminar con la creacion de tu cuenta. 
 							";
  }
+if (isset($_GET['codesent'])){ 
+	$info_show = true;
+	$info_msg ="	<strong>Te acabamos de reenviar su codigo de verificación</strong>
+								<br>Por favor dale click al enlace de confimación en el correo para terminar con la creacion de tu cuenta. 
+							";
+ }
+ 
 elseif (isset($_GET['activationsuccess'])){
 	$info_show = true;
 	$info_msg ="	<strong>La activación de tu cuenta fue exitosa!</strong>
@@ -42,10 +49,13 @@ elseif (isset($_GET['logout'])){
  
    elseif (isset($_GET['inactive'])){
 	$err_show = true;
-	$err_msg =	"	<strong>Tu cuenta no esta activada todavía</strong>
-				<br> Checka bien to Inbox y click en el enlace para activar tu cuenta. 
-				<br> Si no encontraste el correo de activación que te enviamos, verifica en tus Spams o puedes genrar un nuevo correo de activacíon.
-			";
+	$err_msg =	'	<strong>Tu cuenta no esta activada todavía</strong>
+				<br> Checka bien tu Inbox y click en el enlace para activar tu cuenta. 
+				<br> Si no encontraste el correo de activación que te enviamos, verifica en tus spams o sino puedes generar un nuevo correo de activacíon.<br>
+	<div class="col-md-4 text-center"> 
+				<a href = "'. "sendactivationcode.php?email=" . $_GET['email'] . '" class="btn btn-sm btn-round btn-white btn-filled">Generar un nuevo correo de activacíon</a>
+</div>
+			';
  }
  
  elseif (isset($_GET['forgetpass'])){
@@ -54,7 +64,19 @@ elseif (isset($_GET['logout'])){
 				Click en el enlace contenido en el correo para generar una nueva contraseña.
 				";
   }
+   elseif (isset($_GET['passreset'])){
+	$info_show= true;
+	$info_msg = "<strong>Tu nueva contraseña ya esta registrada.</strong><br>			
+				";
+  }
+   elseif (isset($_GET['passnomatch'])){
+	$info_show= true;
+	$info_msg = "<strong>Lo sientlo pero ... </strong>  las contraseñas nos son iguales.<br>Inténtalo otra vez por favor.
+				";
    
+  } 
+  
+  
  elseif (isset($_GET['verifymissingparam'])){
 	$err_show = true;
 	$err_msg ="	<strong>Algo malo pasó con tu enlace de verificacíon</strong>

@@ -45,7 +45,8 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 	<?php include 'home-nav.php'; ?>
 	<div class="container leftnav-margin">
 
-		<H1>BOU</H1>
+		<H1>BOU</H1><H1>BOU</H1><H1>BOU</H1><H1>BOU</H1><H1>BOU</H1><H1>BOU</H1><H1>BOU</H1><H1>BOU</H1>
+
 	
 	</div>
 
@@ -72,6 +73,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
 
 	<!--?php include 'footer.php'; ?-->
+	<?php include 'footer.php'; ?>
 </body>
 <script src="assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>

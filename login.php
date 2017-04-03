@@ -19,14 +19,12 @@ $fb = new Facebook\Facebook([
 $user_login = new USER();
 
 
-print_r( $_POST );
 if($user_login->is_logged_in()!=""){
 
 	$user_login->redirect('home.php');
 }
 
 if(isset($_POST['btn-login'])){
-	echo 'CLICK ON SUBMIT';
 	$email = trim($_POST['txtemail']);
 	$upass = trim($_POST['txtupass']);
 	if($user_login->login($email,$upass)) {
@@ -51,7 +49,6 @@ if (isset($_SESSION['fb_access_token'])){
 		$resp = $user_login->checkUser($user['id'],$user['email']);
 		if ($resp['ismember']==true && $resp['isFB']==true ){
 			$user_login->loginFB($user['email'],$user['id']);
-			exit;
 		}
 		elseif ($resp['ismember']==true && $resp['isFB']==false ){
 			// user is currently connected with Facebook
@@ -59,7 +56,6 @@ if (isset($_SESSION['fb_access_token'])){
 			// show modal to propose options to user to link is account with Facebook AFTER a login 
 			$user_login->linkFB($user['email'],$user['id']);
 			$user_login->loginFB($user['email'],$user['id']);
-			exit;
 		}
 		elseif ($resp['ismember']==false && $resp['isFB']==true ){
 			// weird shit - the email is not known in the DataBase but the Facebook ID is?
@@ -68,7 +64,6 @@ if (isset($_SESSION['fb_access_token'])){
 		elseif ($resp['ismember']==false && $resp['isFB']==false ){
 		// create an account linked to facebook?
 			$user_login->redirect('signup.php');
-			exit;
 		}  
 	}
 
@@ -114,17 +109,19 @@ if (isset($_SESSION['fb_access_token'])){
 <?php include 'handle_notification.php'; ?>
 <?php include 'header.php'; ?>
 
-	<div class="main eco-main" id="registerForm" style="background-image:url('img/bg-login.jpg')">
+	<div class="main eco-main" id="registerForm" style="background-image:url('img/bg-login.jpg');
+		background-color : transparent;
+    width:100%;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center center;">
 		<div class="container eco-container" id="section1" style="padding-top:100px; padding-bottom:50px; background-color : transparent;">
-		    
 			<div class = "eco-panel rounded-panel large-panel white-bg ">
 				<div class="container-fluid">
-				<div class="tim-title">
-				<h1 class="text-center">
-					Iniciar sesión <small class="subtitle">Si no, puedes 
-					<a href="signup.php">abrir una cuenta</a><br></small>
-				</h1>
-			</div> 
+						<h1 class="text-center ">
+							Iniciar sesión <small class="subtitle">Si no, puedes 
+							<a href="signup.php">abrir una cuenta</a><br></small>
+						</h1>
 					<?php if (isset($_SESSION['fb_access_token'])): ?>     <!--  After user login  -->
 						<h4 class="text-center">Hola <?php echo $user['name'] ?></h4>
 							<div class="eco-row">
@@ -193,7 +190,16 @@ if (isset($_SESSION['fb_access_token'])){
 							<a href="forgetpass.php" class="btn btn-block btn-sm btn-primary btn-round">Olvidaste tu contraseña?
 							</a>
 						</div>
-					</div>	
+					</div>
+
+					<div class="eco-row">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<a href="signup.php" class="btn btn-block btn-primary btn-simple">
+								Abrir una cuenta
+							</a>
+						</div>
+					</div>
+					
 				</form>
 			</div>
 		</div>

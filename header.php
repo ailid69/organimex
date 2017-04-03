@@ -1,3 +1,10 @@
+<?php 
+require_once 'config.php';
+require_once 'class.user.php';
+
+$user_home = new USER();
+?> 
+
 <div id="navbar-full">
 
 	<div id="navbar">
@@ -31,26 +38,63 @@
 				
 					<ul class="nav navbar-nav">
 						<li><a href="newPlace.php" class="btn btn-round btn-default">Abrir un ecolugar</a></li>
-						<li><a href="#4href1" class="btn btn-simple btn-default">Como fonctiona?</a></li>
+						<li><a href="index.php#4href1" class="btn btn-simple btn-default">Como fonctiona?</a></li>
 						<li><a href="serprovedor.php" class="btn btn-simple btn-default">Ser provedor</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<?php if(!$user_home->is_logged_in()) : ?>
+
 						<li class="dropdown">
-						  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<a href="#" class="dropdown-toggle btn btn-round btn-white" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="login.php">
+										<span class="glyphicon text-success glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Iniciar sesión
+									</a>
+								</li>
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a role="menuitem" tabindex="-1" href="signup.php">
+										<span class="glyphicon text-success glyphicon-circle-arrow-right" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Abrir una cuenta
+									</a>
+								</li>
+							</ul>
+						 </li>
+						<?php else : ?>
+						 <li class="dropdown">
 							
-							<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							<b class="caret"></b>
-						  </a>
-
-
-						  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="login.php">Iniciar sesión</a></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="logout.php">Desconectarse</a></li>
-							<li role="presentation" class="divider"></li>
-							<li role="presentation"><a role="menuitem" tabindex="-1" href="signup.php">Abrir una cuenta</a></li>
-						  </ul>
-
+							<?php if(isset($_SESSION['fbid'])) : ?>
+							<a id="fb-drop" href="#" class="dropdown-toggle btn btn-white btn-simple" data-toggle="dropdown">
+								<img src="https://graph.facebook.com/<?php echo $_SESSION['fbid'] ?>./picture?width=40" alt="Circle Image" class="img-circle img-responsive center-block" width="40" height="40">			
+								<span class="caret"></span>
+									
+							</a>
+							<?php else : ?>
+								<a href="#" class="dropdown-toggle btn btn-round btn-default" data-toggle="dropdown">
+									<span class="glyphicon glyphicon-user" aria-hidden="true"></span>	
+									<?php echo $_SESSION['userName'] ?>
+									<span class="caret"></span>
+								</a>
+							<?php endif ?>
+							
+							<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+								<li role="presentation">
+									<a href="home.php" role="menuitem" tabindex="-1">
+										<span class="glyphicon text-success glyphicon-circle-arrow-right" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Zona de miembros
+									</a>
+								</li>					
+								<li role="presentation" class="divider"></li>
+								<li role="presentation">
+									<a href="logout.php" role="menuitem" tabindex="-1">
+										<span class="glyphicon text-danger glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Desconectarse
+									</a>
+								</li>		
+							</ul>
 						</li>
+						<?php endif ?>
 					
 					
 					
