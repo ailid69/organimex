@@ -13,7 +13,7 @@ $user_home = new USER();
         -->
 		
 		<!-- ONLY HOME PAGE HAS THE TRANSPARENT NAVIGATION AND BLURRED CONTAINTER -->
-		<?php if ($isHome) : ?>
+		<?php if (isset($isHome)) : ?>
 		<nav class="navbar-transparent navbar navbar-ct-green navbar-fixed-top" role="navigation">
 		<?php else : ?>
 		<nav class="navbar navbar-ct-green navbar-fixed-top" role="navigation">
