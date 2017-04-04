@@ -33,7 +33,9 @@
 <?php include 'handle_notification.php'; ?>
 <?php $isHome = true; include 'header.php'; ?>	
 
-<div class="main eco-main" style="eco-color" >
+<div class="main eco-main">
+	
+
 	<div class="container eco-container" id="section3" style="padding-top : 100px;" >
 		<form data-toggle="validator" role="form" method="POST" id="gmap_form"> 	
 		</form>
@@ -165,10 +167,16 @@
     <!-- The blurry effect on backgroun d image on scroll
 	<script src="assets/js/custom.js"></script>
 	!-->
+	<script type="text/javascript">
+	  $(document).ready(function() {
+		$('.carousel').carousel({interval: 7000});
+	  });
+	</script>
+	
 	
 	<!-- GMaps integration -->
-	<script src="js/gmaps.js"></script>
+	
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY ?>&callback=initMap"></script>
-
+<script src="js/gmaps.js"></script>
 
 </html>

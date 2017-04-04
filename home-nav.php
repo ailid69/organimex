@@ -100,7 +100,7 @@ $nbHome = $stmt->rowCount();
 <div class="navbar navbar-inverse navbar-fixed-left">
   <ul class="nav navbar-nav">
 
-<li role="presentation"><a role="menuitem" tabindex="-1">
+<!--li role="presentation"><a role="menuitem" tabindex="-1">
 <span class="leftNavigationLink-content">
 	<img src="/assets/images/navigation/icon-producers.svg" alt="">
 	<img class="leftNavigationLink-activeImage" src="/assets/images/navigation/icon-producers-active.svg" alt="">
@@ -111,16 +111,16 @@ $nbHome = $stmt->rowCount();
 	<polygon fill="#1D1D1B" points="0,0 0,100 0,200 11,200 11,111 0,100 11,89 11,0 "></polygon>
 	</svg>
 </span>
-</a>ñm
-</li>
+</a>
+</li-->
   
       <?php if ($nbHome == 0 ) : ?>
-	<li><a href="#">! Bienvenido(a) ¡</a></li>
+	<li><a href="#" class="btn btn-round btn-white">! Bienvenido(a) ¡</a></li>
 	<?php else : ?>
-	  <li><a href="#">Inicio</a></li>
-      <li><a href="#">Venta</a></li>
-      <li><a href="#">Productores</a></li>
-      <li><a href="#">Fórum de debates</a></li>
+	  <li><a href="#" class="btn btn-round btn-white">Inicio</a></li>
+      <li><a href="#" class="btn btn-round btn-white">Venta</a></li>
+      <li><a href="#" class="btn btn-round btn-white">Productores</a></li>
+      <!--li><a href="#" class="btn btn-round btn-white">Fórum de debates</a></li-->
 	 <?php endif  ?>
   </ul>
 </div>

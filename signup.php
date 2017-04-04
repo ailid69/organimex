@@ -141,12 +141,32 @@
 	<?php include 'header.php'; ?>
 
 
-<div class="main eco-main" style=" background-image: url('img/bg-signup.jpg'); padding-top:100px; 
+<!--div class="main eco-main" style=" background-image: url('img/bg-signup.jpg'); padding-top:100px; 
 	background-color : transparent;
     width:100%;
     background-repeat:no-repeat;
     background-size:cover;
-    background-position: center center;">
+    background-position: center center;"-->
+	
+<div class="main eco-main" id="loginMain">
+	<div id="myCarousel" class="carousel container slide">
+		<div class="carousel-inner">
+				<div class="item item-1"></div>
+				<div class="active item item-2"></div>
+				<div class="item item-3"></div>
+				<div class="item item-4"></div>
+				<div class="item item-5"></div>
+				<div class="item item-6"></div>
+		</div>
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
 
 		<div class="tim-title white">
 			<h1 class="text-center">
@@ -407,4 +427,9 @@
 			echo "<script>$('#modal_2').modal('show'); </script>";
 		}	
 	?>	
+	<script type="text/javascript">
+	  $(document).ready(function() {
+		$('.carousel').carousel({interval: 7000});
+	  });
+	</script>
 </html>

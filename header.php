@@ -39,7 +39,7 @@ $user_home = new USER();
 					<ul class="nav navbar-nav">
 						<li><a href="newPlace.php" class="btn btn-round btn-default">Abrir un ecolugar</a></li>
 						<li><a href="index.php#4href1" class="btn btn-simple btn-default">Como fonctiona?</a></li>
-						<li><a href="serprovedor.php" class="btn btn-simple btn-default">Ser provedor</a></li>
+						<li><a href="serprovedor.php" class="btn btn-simple btn-default">Ofrecer mis productos</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<?php if(!$user_home->is_logged_in()) : ?>

@@ -1,6 +1,8 @@
 <?php
-require_once ("config.php");
+require_once 'config.php';
+require_once 'class.user.php';
 
+$user = new USER();
 // Start XML file, create parent node
 
 $dom = new DOMDocument("1.0");
@@ -8,10 +10,10 @@ $node = $dom->createElement("markers");
 $parnode = $dom->appendChild($node);
 
 // Opens a connection to a MySQL server
-$query = "SELECT * FROM ecocasa";
+$query = "SELECT * FROM `ecocasa`";
 try{
-		$stmt = $db->prepare($query); 
-        $stmt->execute(); 
+		$stmt = $user->runQuery($query); 
+        $stmt->execute(); 		
 }
 catch(PDOException $ex){ 
 			header("HTTP/1.1 400 " . $ex->getMessage());
@@ -29,9 +31,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   $newnode->setAttribute("lat", $row['lat']);
   $newnode->setAttribute("lng", $row['lng']);
   $newnode->setAttribute("type", $row['type']);
+  
 }
-
 echo $dom->saveXML();
-
 
 ?>

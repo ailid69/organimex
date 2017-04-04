@@ -76,12 +76,34 @@ if(isset($_POST['btn-submit']))
 <?php include 'handle_notification.php'; ?>
 <?php include 'header.php'; ?>
 
-	<div class="main eco-main" id="registerForm" style="background-image:url('img/bg-forgotpass.jpg');
+	<!--div class="main eco-main" id="registerForm" style="background-image:url('img/bg-forgotpass.jpg');
 		background-color : transparent;
     width:100%;
     background-repeat:no-repeat;
     background-size:cover;
-    background-position: center center;">
+    background-position: center center;"-->
+	
+	<div class="main eco-main">
+		<div id="myCarousel" class="carousel container slide">
+			<div class="carousel-inner">
+					<div class="active item item-1"></div>
+					<div class="item item-2"></div>
+					<div class="item item-3"></div>
+					<div class="item item-4"></div>
+					<div class="item item-5"></div>
+					<div class="item item-6"></div>
+			</div>
+			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+
+	
 		<div class="container eco-container" id="section1" style="padding-top:100px; padding-bottom:50px; background-color : transparent;">
 			<div class = "eco-panel rounded-panel xl-panel white-bg ">
 				<div class="container-fluid">
@@ -132,6 +154,11 @@ if(isset($_POST['btn-submit']))
 	<script src="assets/js/jquery.min.js" type="text/javascript"></script>
 	<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
 	<script src="assets/js/validator.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	  $(document).ready(function() {
+		$('.carousel').carousel({interval: 7000});
+	  });
+	</script>
 </html>
 
 
