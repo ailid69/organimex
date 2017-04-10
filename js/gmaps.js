@@ -5,17 +5,21 @@ var messagewindow;
 var icons;
 
 var customLabel = {
-  abierto: {
+  opened: {
     label: 'A',
 	icon: 'img/map-marker-green.png'
   },
-  cerrado: {
+  closed: {
     label: 'C',
 	icon: 'img/map-marker-red.png'
   },
-   proyecto: {
+   project: {
     label: 'P',
 	icon: 'img/map-marker-blue.png'
+  },
+     demo: {
+    label: 'D',
+	icon: 'img/map-marker-default.png'
   }
 };
   
@@ -58,10 +62,10 @@ function initMap() {
 function saveData() {
 	var name = escape(document.getElementById("inputName").value);
 	var address = escape(document.getElementById("inputAddress").value);
-	var type = $('input[name="inputType"]:checked').val();
+	var status = $('input[name="inputType"]:checked').val();
 	var latlng = marker.getPosition();
 	var url = "insertNewPlace.php?name=" + name + "&address=" + address +
-			"&type=" + type + "&lat=" + latlng.lat() + "&lng=" + latlng.lng();
+			"&status=" + status + "&lat=" + latlng.lat() + "&lng=" + latlng.lng();
 
 	downloadUrl(url, function(data, responseCode) {
 		if (responseCode == 200 && data.length <= 1) {
@@ -81,7 +85,7 @@ function loadMarkers(XMLFile) {
   Array.prototype.forEach.call(markers, function(markerElem) {
     var name = markerElem.getAttribute('name');
     var address = markerElem.getAttribute('address');
-    var type = markerElem.getAttribute('type');
+    var status = markerElem.getAttribute('status');
     var point = new google.maps.LatLng(
         parseFloat(markerElem.getAttribute('lat')),
         parseFloat(markerElem.getAttribute('lng')));
@@ -95,7 +99,7 @@ function loadMarkers(XMLFile) {
     var text = document.createElement('text');
     text.textContent = address
     infowincontent.appendChild(text);
-    var icon = customLabel[type] || {};
+    var icon = customLabel[status] || {};
     var marker = new google.maps.Marker({
       map: map,
       position: point,

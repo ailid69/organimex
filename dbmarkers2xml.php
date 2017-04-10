@@ -30,7 +30,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
   $newnode->setAttribute("address", $row['address']);
   $newnode->setAttribute("lat", $row['lat']);
   $newnode->setAttribute("lng", $row['lng']);
-  $newnode->setAttribute("type", $row['type']);
+  $newnode->setAttribute("status", $row['status']);
   
 }
 echo $dom->saveXML();

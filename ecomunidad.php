@@ -8,16 +8,14 @@ if(!$user_home->is_logged_in())
 {
  $user_home->redirect('index.php');
 }
-
-$stmt = $user_home->runQuery("SELECT u.firstName, u.lastName, h.name, h.status, h.UID AS homeid, u.UID FROM `ecocasa_members` AS asso INNER JOIN `ecocasa` AS h ON h.UID = asso.ecocasaid INNER JOIN `users` AS u ON u.UID = asso.userid WHERE u.UID=:uid");
-$stmt->execute(array(":uid"=>$_SESSION['userSession']));
-//$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$nbHome = $stmt->rowCount();
-if ($nbHome > 0){
-	$row=$stmt->fetch(PDO::FETCH_ASSOC);
-	$user_home->redirect('ecomunidad.php?id=' . $row['homeid']);	
+try{
+	$stmt = $user_home->runQuery("SELECT * FROM  `ecocasa`  WHERE UID=:uid");
+	$stmt->execute(array(":uid"=>$_GET['id']));
+	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
+catch(PDOException $ex){
+	$user->redirect('index.php?dberror');
+}
 ?>
 
 <!doctype html>
@@ -29,7 +27,7 @@ if ($nbHome > 0){
 	<link rel="icon" type="image/png" href="img/favicon-16x16.png">	
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Org@migos - <?php echo $_SESSION['userName']; ?></title>
+	<title>Org@migos - <?php echo $_row['name']; ?></title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width" />
 
@@ -49,19 +47,10 @@ if ($nbHome > 0){
 	<?php include 'handle_notification.php'; ?>
 	<?php include 'home-nav.php'; ?>
 	<div class="container leftnav-margin">
-		<?php if ($nbHome == 0) : ?>
-		
-			<div class="container eco-container">
-				<div class = "eco-panel rounded-panel large-panel white-bg ">
-					<h1 class="text-center">¡ Bienvenido !</h1>
-					<p>Unate a una e-comunidad cerca de tu zona ! </p>
-				</div>
-			</div>
-		<?php else :
-			
-		?>
-		
-		<?php endif ?>
+		<h2 class="text-center">
+			<?php echo $row['name']; ?>
+			<small class="subtitle">Favorecer circuitos cortos</small>
+		</h2>
 	</div>
 
 <!--	

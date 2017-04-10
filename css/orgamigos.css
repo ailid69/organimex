@@ -3,6 +3,31 @@
 margin : 0px 0px;
 }
 
+.left-nav-item{
+    display: block;
+    font-size: 14px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+}
+
+.left-nav-item img {
+    height: 50px;
+    width: 50px;
+	vertical-align: middle
+}
+
+.left-nav-item.active img {
+   opacity : 0;
+}
+
+.left-nav-item img {
+    height: 60px;
+    opacity: 1;
+    transition: opacity .2s;
+    width: 60px;
+}
+
 /*h1 small { color : white;}*/
 
 #map {
