@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="credits">
-                 &copy; <script>document.write(new Date().getFullYear())</script> OrganiMex by <a href="mailto:david.aili.mx@gmail.com"> David AÏLI</a>, made with <i class="fa fa-heart heart" alt="love"></i> for a better world.
+                 &copy; <script>document.write(new Date().getFullYear())</script> Orgamigos by <a href="mailto:david.aili.mx@gmail.com"> David AÏLI</a>, made with <i class="fa fa-heart heart" alt="love"></i> for a better world.
             </div>
         </div>
 		<!--

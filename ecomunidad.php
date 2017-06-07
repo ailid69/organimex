@@ -9,12 +9,55 @@ if(!$user_home->is_logged_in())
  $user_home->redirect('index.php');
 }
 try{
-	$stmt = $user_home->runQuery("SELECT * FROM  `ecocasa`  WHERE UID=:uid");
+	$stmt = $user_home->runQuery('SELECT UID, name, frequency, day, status, DATE_FORMAT(start_time, "%H:%i") as `start`, DATE_FORMAT(end_time, "%H:%i") as `end` FROM  `ecocasa`  WHERE UID=:uid');
 	$stmt->execute(array(":uid"=>$_GET['id']));
 	$row = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 catch(PDOException $ex){
 	$user->redirect('index.php?dberror');
+}
+
+function dia_de_venta ($f, $d, $s, $e){
+	$txt = "Ventas cada ";
+	switch ($f){
+		case "weekly" : 
+			$txt =  $txt . "semana ";
+			break;
+		case "biweekly" : 
+			$txt =  $txt . "dos semana ";
+			break;
+		case "monthly" : 
+			$txt =  $txt . "mes ";
+			break;
+	}
+	$txt =  $txt . "los ";
+	
+	switch ($d){
+		case 1 : 
+			$txt =  $txt . "lunes ";
+			break;
+		case 2 : 
+			$txt =  $txt . "martes ";
+			break;
+		case 3 : 
+			$txt =  $txt . "miercoles ";
+			break;
+		case 4 : 
+			$txt =  $txt . "jueves ";
+			break;
+		case 5 : 
+			$txt =  $txt . "viernes ";
+			break;
+		case 6 : 
+			$txt =  $txt . "sabado ";
+			break;
+		case 7 : 
+			$txt =  $txt . "domingo ";
+			break;
+	}
+	$txt =  $txt . "de " . $s . " a " . $e ;
+	return $txt;
+	
 }
 ?>
 
@@ -27,7 +70,7 @@ catch(PDOException $ex){
 	<link rel="icon" type="image/png" href="img/favicon-16x16.png">	
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Org@migos - <?php echo $_row['name']; ?></title>
+	<title>Org@migos - <?php echo $row['name']; ?></title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width" />
 
@@ -47,10 +90,21 @@ catch(PDOException $ex){
 	<?php include 'handle_notification.php'; ?>
 	<?php include 'home-nav.php'; ?>
 	<div class="container leftnav-margin">
-		<h2 class="text-center">
+		<div class="eco-container brown-4-bg">
+		<h1 class="text-center">
 			<?php echo $row['name']; ?>
-			<small class="subtitle">Favorecer circuitos cortos</small>
-		</h2>
+			<small class="subtitle">
+				<?php 
+					if ($row['status'] == 'opened' || $row['status'] == 'demo' ) {
+						echo dia_de_venta($row['frequency'],$row['day'],$row['start'],$row['end']); 
+					}
+					elseif ($row['status'] == 'project'){
+						echo ('Este lugar todavia esta en constucción, ayudanos a encontrar productores y consumidores para abrir ventas los mas pronto que puede');					
+					} 
+				?> 
+			</small>
+		</h1>
+		</div>
 	</div>
 
 <!--	
