@@ -26,7 +26,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 	define("SMTP_PASS","PJOJUFDU");
 	define("SMTP_FROM","orgamigos.mx@gmail.com");
 	define("SMTP_REPLYTO","orgamigos.mx@gmail.com");
-	
+/* ------------------------- DEBUG HELP TO DISPLAY DATE OF LAST GIT COMMIT ----------------------- */	
+	define("GITPATH","/volume1/web/orgamigos");
 // *****************************************************************************
 
 	session_start(); // Start or resume php session

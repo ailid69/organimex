@@ -10,6 +10,16 @@ $stmt->execute(array(":uid"=>$_SESSION['userSession']));
 //$row = $stmt->fetch(PDO::FETCH_ASSOC);
 $nbHome = $stmt->rowCount();
 
+$stmt2 = $user_home->runQuery("SELECT c.name, c.UID FROM `ecocasa` AS c INNER JOIN `ecocasa_admin` AS a on c.UID = a.ecocasaid WHERE a.userid = :uid");
+$stmt2->execute(array(":uid"=>$_SESSION['userSession']));
+//$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$nbAdmin = $stmt2->rowCount();
+
+$stmt3 = $user_home->runQuery("SELECT p.name FROM `providers` AS p INNER JOIN `users` AS u on p.userid = u.UID WHERE p.userid = :uid");
+$stmt3->execute(array(":uid"=>$_SESSION['userSession']));
+//$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$nbProd = $stmt3->rowCount() ;
+
 ?>
 <div id="navbar-full-top">
 	<div id="navbar-top">
@@ -61,12 +71,31 @@ $nbHome = $stmt->rowCount();
 							<?php endif ?>
 							
 							<ul class="dropdown-menu" role="menu" aria-labelledby="useroption">
+							<!-- Salepoint Administration part  -->
+							<?php if($nbAdmin > 0) : ?>
+								<li class="dropdown-header" role="presentation" tabindex="-1"><strong>Administración de ecolugar</strong></li>
+								<?php while ($dbdata2 = $stmt2->fetch(PDO::FETCH_ASSOC)) { ?>
+									<li role="presentation"><a role="menuitem" href='admin_ecolugar.php?id=<?php echo $dbdata2['UID'] ?>' tabindex="-1"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;<?php echo $dbdata2['name'];?></a></li>
+								<?php } ?>
+							<?php endif ?>
+							
+							<!-- Salepoint Administration part  -->
+							<?php if($nbProd > 0) : ?>
+								<li class="dropdown-header" role="presentation" tabindex="-1"><strong>Administración de cuenta como proveedor</strong></li>
+									<?php while ($dbdata3 = $stmt3->fetch(PDO::FETCH_ASSOC)) { ?>
+										<li role="presentation"><a role="menuitem" href='admin_producer.php?id=<?php echo $_SESSION['userSession']  ?>' tabindex="-1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;<?php echo $dbdata3['name'];?></a></li>
+									<?php } ?>
+							<?php endif ?>
+							<!-- Consumer user part   -->
+							
 								<li class="dropdown-header" role="presentation" tabindex="-1"><strong><?php echo $_SESSION['userName']; ?></strong></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Identidad</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Cuenta</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Eco-lugares</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Notificaciones</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Facturas</a></li>
+
+							<!-- Close session part  -->	
 								<li role="separator" class="divider"></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href='logout.php'><span class="glyphicon text-danger  glyphicon-log-out" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Cerrar sesión</a></li>
 							 </ul>	

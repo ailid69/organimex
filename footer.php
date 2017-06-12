@@ -17,9 +17,38 @@
         </div>
         <div class="row">
             <div class="credits">
-                 &copy; <script>document.write(new Date().getFullYear())</script> Orgamigos by <a href="mailto:david.aili.mx@gmail.com"> David AÏLI</a>, made with <i class="fa fa-heart heart" alt="love"></i> for a better world.
-            </div>
+                 &copy; <script>document.write(new Date().getFullYear())</script> Orgamigos by <a href="mailto:david.aili.mx@gmail.com"> David AÏLI</a>, made with <i class="fa fa-heart heart" alt="love"></i> for a better world.<br>
+                           <!-- displays date of last git commit -->
+			   <?php 
+					// Change To Repo Directory
+					chdir(GITPATH);
+					// Load 1 Git Logs
+					$git_history = [];
+					$git_logs = [];
+					exec("git log -1", $git_logs);
+					// Parse Logs
+					$last_hash = null;
+					foreach ($git_logs as $line)
+					{
+						// Clean Line
+						$line = trim($line);
+						// Proceed If There Are Any Lines
+						if (!empty($line))
+						{
+							if (strpos($line, 'Date') !== false) {
+								$date = explode(':', $line, 2);
+								$date = trim(end($date));
+								$date = date('d/m/Y H:i:s A', strtotime($date));
+							}
+						}
+					}
+					print_r('Version from : ' . $date);
+					?>
+			</div>
         </div>
+		
+
+
 		<!--
 		<div class="row">
 
