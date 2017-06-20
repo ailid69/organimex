@@ -121,7 +121,10 @@ elseif (isset($_GET['logout'])){
 	$err_show = true;
 	$err_msg ="	<strong>Hubó un problema con el base de datos<strong><br>Detalles :  " . $_GET['error'] ;
  }
-
+	elseif (isset($_GET['producererror'])){
+	$err_show = true;
+	$err_msg ="No eres registrado como un proveedor." ;
+ }
  
 if ($info_show == true){
 	echo '	<div  class="alert alert-info alert-fixed"  id="myalertinfo" >

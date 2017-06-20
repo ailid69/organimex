@@ -8,8 +8,6 @@ $lat = $_GET['lat'];
 $lng = $_GET['lng'];
 $type = $_GET['type'];
 
-
-
 // Inserts new row with place data.
 
 $query = " 

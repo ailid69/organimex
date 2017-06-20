@@ -28,7 +28,7 @@ require_once 'config.php';
   
 	<style type="text/css">
       #map {
-        height: 50%;
+        height: 80%;
       }
 	  html, body {
         height: 100%;
@@ -53,7 +53,7 @@ require_once 'config.php';
 	   <h2 class="text-center">¿ Donde esta ?</h2>
        
 		
-			<form data-toggle="validator" role="form" method="POST" id="gmap_form" onSubmit="saveData()"> 	
+			<form hidden data-toggle="validator" role="form" method="POST" id="gmap_form" onSubmit="saveData()"> 	
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
 						<div class="form-group has-feedback">
@@ -77,7 +77,7 @@ require_once 'config.php';
 				<div class="row">
 					<div class="col-sm-8 col-sm-offset-2">
 						<div class="form-group has-feedback">
-							<label for="inputAddress">Direccíon</label>
+							<label for="inputAddress">Direccíon (corrija o completala con mas informacíon, numero de calle, entrecalles etc.)</label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 								<input
@@ -152,7 +152,7 @@ require_once 'config.php';
 	<script src="assets/js/custom.js"></script>
 	!-->
 
-	<script src="js/gmaps.js"></script>
+	<script src="js/gmapsNewcasa.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY ?>&callback=initMap"></script>
 
 </html>

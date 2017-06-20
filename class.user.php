@@ -136,6 +136,49 @@ class USER{
 			return true;
 		}
 	 }
+	 public function is_admin(){
+		$query = "SELECT isAdmin FROM users WHERE UID = " . $_SESSION['userSession'] . " AND isAdmin = true";
+		
+		try{
+			$stmt = $this->conn->prepare($query); 
+			$stmt->execute(); 
+			$result = $stmt->rowCount();
+			if ($result != 0 ) { // User exists already in the DB as a producer	
+				return true;
+			}
+		}
+		catch(PDOException $ex){ 
+		
+			$err =  $ex->getMessage();
+			$this->redirect("login.php?dberror&error=" .$err);
+		}
+	 }  
+	 public function is_producer(){
+		// admin user can be considered as any producer
+		if ($this->is_admin()==true) {
+			return true;
+		}
+		// a producer can`t access any other producer profile
+		if ($_SESSION['userSession'] != $_GET['id']) {
+			return false;
+		}
+		// check if the current user is registered as a producer
+		$query = "SELECT userid FROM providers WHERE userid = " . $_SESSION['userSession'];
+		try{
+			$stmt = $this->conn->prepare($query); 
+			$stmt->execute(); 
+			$result = $stmt->rowCount();
+			
+			if ($result != 0 ) { // User exists already in the DB as a producer	
+				return true;
+			}	
+		}
+		catch(PDOException $ex){ 
+		
+			$err =  $ex->getMessage();
+			$this->redirect("login.php?dberror&error=" .$err);
+		}
+	}
 	 
 	public function redirect($url){
 		header("Location: $url");

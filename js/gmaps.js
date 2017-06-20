@@ -72,6 +72,10 @@ function saveData() {
 			infowindow.close();
 			$('message').prop( "hidden", null );
 			messagewindow.open(map, marker);
+			console.log ('return code is good');
+		}
+		else {
+			console.log ('return code is shitty');
 		}
 	});
 }
