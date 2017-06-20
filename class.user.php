@@ -150,7 +150,7 @@ class USER{
 		catch(PDOException $ex){ 
 		
 			$err =  $ex->getMessage();
-			$this->redirect("login.php?dberror&error=" .$err);
+			$this->redirect("home.php?dberror&error=" .$err);
 		}
 	 }  
 	 public function is_producer(){
